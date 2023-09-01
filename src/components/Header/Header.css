@@ -1,0 +1,67 @@
+@font-face {
+    font-family: Cabinet Grotesk;
+    src: url(../../fonts/CabinetGrotesk-Regular.woff) format(.woff);
+}
+
+.header{
+    background-color: lightcoral;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+}
+
+
+
+.header__logo-date_container{    
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    
+}
+
+.header__logo{
+    width: 89px;
+    height: 40px;
+    align-self: center;
+}
+
+.header__date{
+    align-self: center;    
+    text-align: left;
+
+}
+
+.header__button-user_container{
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+}
+
+.header__add-btn{
+    align-self: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: ease-in 0.2s;
+    align-content: center;
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+}
+
+
+.header__user-name{
+    align-self: center;
+}
+
+.header__user-avatar{
+    align-self: center;
+    size: 40px;
+}

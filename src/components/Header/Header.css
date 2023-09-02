@@ -1,10 +1,9 @@
 @font-face {
-    font-family: Cabinet Grotesk;
+    font-family: 'Cabinet Grotesk';
     src: url(../../fonts/CabinetGrotesk-Regular.woff) format(.woff);
 }
 
-.header{
-    background-color: lightcoral;
+.header{    
     margin: 20px;
     display: flex;
     justify-content: space-between;

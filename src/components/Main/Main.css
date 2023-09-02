@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    src: url(../../fonts/CabinetGrotesk-Regular.woff) format(.woff);
+  }
+
+.main{
+    margin:20px;
+    background-color: lightgreen;
+    font-family: 'Cabinet Grotesk';
+}

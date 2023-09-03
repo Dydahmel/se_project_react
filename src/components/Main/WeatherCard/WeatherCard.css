@@ -5,6 +5,7 @@
 
 .weather__image{
     width: 100%;
+    
 }
    
     
@@ -16,9 +17,10 @@
    top: 20px;
    font-family: 'Cabinet Grotesk', sans-serif;
    font-size: 36px;
-    font-weight: 700;
-    line-height: 40px;
-    letter-spacing: 0em;
-    text-align: left;
-
+   font-weight: 700;
+   line-height: 1.25;
+   letter-spacing: 0em;
+   text-align: left;
+   width: inherit;
+  
 }

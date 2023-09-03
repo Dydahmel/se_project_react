@@ -1,8 +1,12 @@
-
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url(../fonts/CabinetGrotesk-Regular.woff) format(.woff);
+}
 
 
 .App{
   color: black;
   margin: 0;
   padding: 0;
+  font-family: 'Cabinet Grotesk', sans-serif;
 }

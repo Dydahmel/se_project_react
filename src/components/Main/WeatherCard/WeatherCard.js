@@ -21,7 +21,7 @@ const weatherOptions = [
 
 
 //passing weather option from Main.js
-function WeatherCard({day, weather}){
+function WeatherCard({day, weather, temperature}){
     //filtering given options through array with cards
     const imageSrc = weatherOptions.filter((i) => {
         return i.day === day && i.weather === weather
@@ -30,9 +30,8 @@ function WeatherCard({day, weather}){
     const currentImageSrc = imageSrc[0].url || ' '
     return(
         <section className='weather'>
-            <div className='weather__temperature'>75 F</div>
-            <img className='weather__image' alt='weather-card' src={currentImageSrc}>
-                
+            <div className='weather__temperature'>{temperature}</div>
+            <img className='weather__image' alt='weather-card' src={currentImageSrc}>                
             </img>
         </section>
         )

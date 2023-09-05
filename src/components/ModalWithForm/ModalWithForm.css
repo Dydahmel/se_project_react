@@ -16,7 +16,8 @@
     font-weight: 700;
     line-height: 20px;
     letter-spacing: 0em;
-    font-style: normal;    
+    font-style: normal;  
+     
 }
 
 .modal__content{
@@ -28,6 +29,16 @@
     padding: 28px;
     padding-bottom: 36px;
     position: relative;
+    overflow: hidden; 
+}
+
+.modal__content-img{
+    padding: 0;
+}
+
+.modal__img{    
+    max-width: 100%;
+    
 }
 
 .modal__close-btn{
@@ -85,6 +96,15 @@
     margin-top: 36px;
 }
 
+.modal__caption{
+    margin: 0;
+    padding: 32px;
+    padding-top: 20px;
+}
+
+.modal__text{
+    margin: 0;
+}
 .modal__close-btn:hover{
     opacity: 0.6;
 }

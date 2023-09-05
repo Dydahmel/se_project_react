@@ -4,12 +4,14 @@ import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
 import ModalWithForm from './ModalWithForm/ModalWithForm';
+import ItemModal from './ItemModal/ItemModal';
 
 import { useState } from 'react';
 
 function App() {
 
   const [activeModal, setActiveModal] = useState("");
+  const [selectedCard, setSelectedCard] = useState({});
 
 
   function handleCreateModal(){
@@ -20,15 +22,21 @@ function App() {
     setActiveModal("")
   }
 
-
+  function hadleSelectedCard(card){
+    setActiveModal('preview')
+    setSelectedCard(card)
+  }
+  console.log(selectedCard)
 
   return (
     <div className="App">
       <Header onCreateModal = {handleCreateModal}/>
-      <Main />
+      <Main onSelectCard={hadleSelectedCard} currentTemperature = "75°F"/>
       <Footer />
       {activeModal === 'create' && 
       <ModalWithForm title={'New garment'} 
+      onCloseModal = {handleCloseModal}/>}
+      {activeModal === 'preview' && <ItemModal selectedCard={selectedCard} 
       onCloseModal = {handleCloseModal}/>}
     </div>
   );

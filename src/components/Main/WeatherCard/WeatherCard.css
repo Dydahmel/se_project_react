@@ -24,3 +24,31 @@
    width: inherit;
   
 }
+
+@media screen and (max-width: 1300px) {
+    .weather__temperature{
+        font-size: 24px;
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+    .weather__temperature{        
+        top: 10px;
+    }
+    
+}
+
+@media screen and (max-width: 840px) {
+    .weather__temperature{        
+        font-size: 16px;
+    }
+    
+}
+
+@media screen and (max-width: 640px) {
+    .weather__temperature{       
+        font-weight: 300;
+    }
+    
+}

@@ -6,12 +6,12 @@ import header__avatar from '../../images/header__avatar.svg'
 const currentDate = new Date().toLocaleString('default', { month: 'long', day: 'numeric' });
   
 
-function Header({onCreateModal}) {
+function Header({onCreateModal, currentLocation}) {
     return (
       <header className="header">
         <div className="header__logo-date_container">
         <img className="header__logo" src={header__logo} alt="header-logo" />
-        <div className="header__date">{currentDate}, Hardcoded NYC</div>
+        <div className="header__date">{currentDate}, {currentLocation}</div>
         </div>
         <div className="header__button-user_container">
             <button type="text" className="header__add-btn" onClick={onCreateModal}>+ Add clothes</button>

@@ -29,3 +29,16 @@ export function parseWeatherCondition(data){
     const weatherCondition = weatherObject.id
     return weatherCondition
 }
+
+export function parseDaytimeCondition(data){
+    const sys = data.sys;    
+    const dayLighCondition = {};
+    dayLighCondition.sunrise = sys.sunrise;
+    dayLighCondition.sunset = sys.sunset;    
+    return dayLighCondition    
+}
+
+export function parseLocation(data){
+    const location = data.name;
+    return location
+}

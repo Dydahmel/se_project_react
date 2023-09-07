@@ -1,10 +1,9 @@
 import React from "react";
 import '../ModalWithForm/ModalWithForm.css';
 
-function ItemModal({selectedCard, onCloseModal}){
-    console.log("itemModal is working")
+function ItemModal({selectedCard, onCloseModal, onCloseModalByOverlay}){   
     return(
-        <div className={`modal`}>
+        <div className={`modal`} onClick = {onCloseModalByOverlay}>
             <div className="modal__content modal__content-img">
                 <button type="button" onClick={onCloseModal} className="modal__close-btn"></button>
                 <img alt="item" src={selectedCard.link} className="modal__img"/>

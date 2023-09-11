@@ -1,30 +1,20 @@
-# Getting Started with Create React App
+# CRA Project - What To Wear?
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Ready to leave your house?
+What to wear? - Is commonly used question. Say no more and use this app witch help you solve this 
+problem once and forever
 
-In the project directory, you can run:
 
-### `npm start`
+###  About the project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The idea of the application is pretty simple - we make a call to an API, which then responds with the daily weather forecast. We collect the weather data, process it, and then based on the forecast, we recommend suitable clothing to the user.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Links:
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+My repo - https://github.com/Dydahmel/se_project_react.git
+My linkedIn - https://www.linkedin.com/in/anton-dutchak-5468b2185
+My project https://dydahmel.github.io/se_project_react/

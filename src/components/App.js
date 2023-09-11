@@ -11,7 +11,7 @@ import {
   parseWeatherTemp,
   parseDaytimeCondition,
   parseLocation,
-} from "../util/API";
+} from "../util/WeatherApi";
 
 import { useEffect, useState } from "react";
 

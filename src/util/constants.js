@@ -56,3 +56,7 @@ export const weatherOptions = [
   { url: require("../images/night__snow.svg").default, day: false, weather: "snow" },
   { url: require("../images/night__storm.svg").default, day: false, weather: "storm" },
 ];
+
+export const latitude = 40.6;
+export const longitude = -73.95;
+export const APIkey = "89c0092216c33711bbf4446badc558c2";

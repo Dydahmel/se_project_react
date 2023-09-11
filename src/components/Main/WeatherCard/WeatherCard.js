@@ -1,6 +1,6 @@
 import React from "react";
 import "./WeatherCard.css";
-import { weatherOptions } from "../../../util/constants";
+import { weatherOptions } from "../../../utils/constants";
 
 //passing weather option from Main.js
 function WeatherCard({ day, weather = "", temperature }) {

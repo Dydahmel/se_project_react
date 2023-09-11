@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/se_project_react/static/css/main.67ca0a63.css",
+    "main.js": "/se_project_react/static/js/main.425917fa.js",
+    "static/js/787.79f92504.chunk.js": "/se_project_react/static/js/787.79f92504.chunk.js",
+    "static/media/header__avatar.svg": "/se_project_react/static/media/header__avatar.d194b877f5c666e971bd66ab0e3f6c57.svg",
+    "static/media/CabinetGrotesk-Bold.woff": "/se_project_react/static/media/CabinetGrotesk-Bold.0fb1cbec860aa3537c32.woff",
+    "static/media/day__snow.svg": "/se_project_react/static/media/day__snow.a5bb7441280cef64ae081acadb7d6e66.svg",
+    "static/media/night__snow.svg": "/se_project_react/static/media/night__snow.20a89d711249712380ea9f4269b386a3.svg",
+    "static/media/day__storm.svg": "/se_project_react/static/media/day__storm.51c68e175fd385c6055462b91d462bd5.svg",
+    "static/media/night__storm.svg": "/se_project_react/static/media/night__storm.b98983c750d3f283a9267efc3c3fd940.svg",
+    "static/media/day__rain.svg": "/se_project_react/static/media/day__rain.8fd968acf8cb57624e2a990b324c1278.svg",
+    "static/media/night__rain.svg": "/se_project_react/static/media/night__rain.ebe0301b9856c6c8564df5c8beea1ac8.svg",
+    "static/media/day__fog.svg": "/se_project_react/static/media/day__fog.8ad4efe699a8e3a16ae0220f3b5a3d48.svg",
+    "static/media/night__fog.svg": "/se_project_react/static/media/night__fog.cee462810b2a7c8696b7701170241a66.svg",
+    "static/media/header__logo.svg": "/se_project_react/static/media/header__logo.2e52a3b54443b649938df0a9b3d231e2.svg",
+    "static/media/night__cloudy.svg": "/se_project_react/static/media/night__cloudy.c52565b10982a97a5a67275442bd12ee.svg",
+    "static/media/day__cloud.svg": "/se_project_react/static/media/day__cloud.afb98af2bd43d3a2a330e655695bd2c9.svg",
+    "static/media/close__btn.svg": "/se_project_react/static/media/close__btn.5041c8cbf1275be14ac1.svg",
+    "index.html": "/se_project_react/index.html",
+    "static/media/day__sunny.svg": "/se_project_react/static/media/day__sunny.1c3ffd02d92146a2673939be89b88d54.svg",
+    "static/media/night__moon.svg": "/se_project_react/static/media/night__moon.ae0e6bbe1e0bfc883f3ba207396bf3b4.svg",
+    "main.67ca0a63.css.map": "/se_project_react/static/css/main.67ca0a63.css.map",
+    "main.425917fa.js.map": "/se_project_react/static/js/main.425917fa.js.map",
+    "787.79f92504.chunk.js.map": "/se_project_react/static/js/787.79f92504.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.67ca0a63.css",
+    "static/js/main.425917fa.js"
+  ]
+}

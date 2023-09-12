@@ -10,7 +10,11 @@ function ItemModal({ selectedCard, onCloseModal, onCloseModalByOverlay }) {
           onClick={onCloseModal}
           className="modal__close-btn"
         ></button>
-        <img alt="item" src={selectedCard.link} className="modal__img" />
+        <img
+          alt={selectedCard.name}
+          src={selectedCard.link}
+          className="modal__img"
+        />
         <div className="modal__caption">
           <p className="modal__text ">{selectedCard.name}</p>
           <p className="modal__text">Weather: {selectedCard.weather}</p>

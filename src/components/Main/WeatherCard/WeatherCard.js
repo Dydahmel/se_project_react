@@ -8,11 +8,9 @@ function WeatherCard({ day, weather = "", temperature }) {
   const imageSrc = weatherOptions.filter((i) => {
     return i.day === day && i.weather === weather;
   });
-  
 
   //assign filtered result to variable, so its not gonna brake react code
   const currentImageSrc = imageSrc.length > 0 ? imageSrc[0].url : "";
-  
 
   return (
     <section className="weather">

@@ -8,7 +8,7 @@ function ItemCard({ card, onSelectCard }) {
         <img
           src={card.link}
           className="card__image"
-          alt="card"
+          alt={card.name}
           onClick={() => onSelectCard(card)}
         ></img>
       </div>

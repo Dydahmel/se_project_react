@@ -62,7 +62,13 @@ function Main({
         </div>
         <ul className="card__list">
           {filteredCards.map((card) => {
-            return <ItemCard card={card} onSelectCard={onSelectCard} />;
+            return (
+              <ItemCard
+                card={card}
+                onSelectCard={onSelectCard}
+                key={card._id}
+              />
+            );
           })}
         </ul>
       </section>

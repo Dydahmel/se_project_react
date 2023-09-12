@@ -1,14 +1,12 @@
 import React from "react";
 import "./ModalWithForm.css";
-import "./Form/Form";
-import Form from "./Form/Form";
 
 function ModalWithForm({
   name,
   onCloseModal,
   onCloseModalByOverlay,
   title,
-  buttonText = "Add garment",
+  children,
 }) {
   return (
     <div
@@ -20,14 +18,9 @@ function ModalWithForm({
           type="button"
           onClick={onCloseModal}
           className="modal__close-btn"
-        ></button>
+        />
         <p className="modal__title">{title}</p>
-        <form className="modal__form">
-          <Form />
-        </form>
-        <button type="submit" className="modal__submit-btn">
-          {buttonText}
-        </button>
+        <form className="modal__form">{children}</form>
       </div>
     </div>
   );

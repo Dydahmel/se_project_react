@@ -42,14 +42,16 @@ function App() {
     }
   };
 
-  // Function to handle ESC key press
-  const handleEscKey = (event) => {
-    if (event.key === "Escape") {
-      handleCloseModal();
-    }
-  };
-
   useEffect(() => {
+    if (!activeModal) return;
+
+    // Function to handle ESC key press
+    const handleEscKey = (event) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (event.key === "Escape") {
+        handleCloseModal();
+      }
+    };
     // Attach event listeners when the component mounts
     document.addEventListener("keydown", handleEscKey);
     return () => {
@@ -60,17 +62,21 @@ function App() {
   }, [activeModal]);
 
   useEffect(() => {
-    getWeather().then((data) => {
-      parseWeatherCondition(data);
-      const currentTemperature = parseWeatherTemp(data);
-      setTemp(currentTemperature);
-      const weatherCondition = parseWeatherCondition(data);
-      setWeather(weatherCondition);
-      const dayLighCondition = parseDaytimeCondition(data);
-      setDayLight(dayLighCondition);
-      const currentLocation = parseLocation(data);
-      setLocation(currentLocation);
-    });
+    getWeather()
+      .then((data) => {
+        parseWeatherCondition(data);
+        const currentTemperature = parseWeatherTemp(data);
+        setTemp(currentTemperature);
+        const weatherCondition = parseWeatherCondition(data);
+        setWeather(weatherCondition);
+        const dayLighCondition = parseDaytimeCondition(data);
+        setDayLight(dayLighCondition);
+        const currentLocation = parseLocation(data);
+        setLocation(currentLocation);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   return (
@@ -86,9 +92,70 @@ function App() {
       {activeModal === "create" && (
         <ModalWithForm
           title={"New garment"}
+          buttonText={"Add garment"}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
-        />
+        >
+          <>
+            <label className="form__label text__label">
+              Name
+              <input
+                type="text"
+                name="name"
+                minLength="1"
+                maxLength="30"
+                className="text__input"
+                placeholder="Name"
+              />
+            </label>
+            <label className="form__label text__label">
+              Image
+              <input
+                type="url"
+                name="link"
+                minLength="1"
+                maxLength="30"
+                className="text__input"
+                placeholder="Image URL"
+              />
+            </label>
+            <div className="form__radio-container">
+              <p className="form__subtitle">Select the weather type:</p>
+              <div>
+                <div>
+                  <input
+                    type="radio"
+                    id="hot"
+                    value="hot"
+                    className="radio__input"
+                  />
+                  <label className="form__label radio__label">Hot</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="warm"
+                    value="warm"
+                    className="radio__input"
+                  />
+                  <label className="form__label radio__label">Warm</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="cold"
+                    value="cold"
+                    className="radio__input"
+                  />
+                  <label className="form__label radio__label">Cold</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" className="modal__submit-btn">
+              Add garment
+            </button>
+          </>
+        </ModalWithForm>
       )}
       {activeModal === "preview" && (
         <ItemModal

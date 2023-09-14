@@ -12,8 +12,6 @@ import {
   parseDaytimeCondition,
   parseLocation,
 } from "../utils/WeatherApi";
-import { buttonText } from "../utils/constants";
-
 import { useEffect, useState } from "react";
 
 function App() {
@@ -93,7 +91,7 @@ function App() {
       {activeModal === "create" && (
         <ModalWithForm
           title={"New garment"}
-          buttonText={buttonText}
+          buttonText={"Add garment"}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
         >
@@ -123,43 +121,40 @@ function App() {
             <p className="form__subtitle">Select the weather type:</p>
             <div>
               <div>
-                <input
-                  type="radio"
-                  id="hot"
-                  value="hot"
-                  className="radio__input"
-                />
                 <label className="form__label radio__label" id="hot">
+                  <input
+                    type="radio"
+                    id="hot"
+                    value="hot"
+                    className="radio__input"
+                  />
                   Hot
                 </label>
               </div>
               <div>
-                <input
-                  type="radio"
-                  id="warm"
-                  value="warm"
-                  className="radio__input"
-                />
                 <label className="form__label radio__label" id="warm">
+                  <input
+                    type="radio"
+                    id="warm"
+                    value="warm"
+                    className="radio__input"
+                  />
                   Warm
                 </label>
               </div>
               <div>
-                <input
-                  type="radio"
-                  id="cold"
-                  value="cold"
-                  className="radio__input"
-                />
                 <label className="form__label radio__label" id="cold">
+                  <input
+                    type="radio"
+                    id="cold"
+                    value="cold"
+                    className="radio__input"
+                  />
                   Cold
                 </label>
               </div>
             </div>
           </div>
-          <button type="submit" className="modal__submit-btn">
-            {buttonText}
-          </button>
         </ModalWithForm>
       )}
       {activeModal === "preview" && (

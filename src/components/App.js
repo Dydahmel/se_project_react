@@ -127,6 +127,7 @@ function App() {
                     id="hot"
                     value="hot"
                     className="radio__input"
+                    name="radio__input"
                   />
                   Hot
                 </label>
@@ -138,6 +139,7 @@ function App() {
                     id="warm"
                     value="warm"
                     className="radio__input"
+                    name="radio__input"
                   />
                   Warm
                 </label>
@@ -149,6 +151,7 @@ function App() {
                     id="cold"
                     value="cold"
                     className="radio__input"
+                    name="radio__input"
                   />
                   Cold
                 </label>

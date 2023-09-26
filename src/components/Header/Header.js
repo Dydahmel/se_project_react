@@ -2,6 +2,8 @@ import React from "react";
 import "./Header.css";
 import headerLogo from "../../images/header__logo.svg";
 import headerAvatar from "../../images/header__avatar.svg";
+import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
+
 
 const currentDate = new Date().toLocaleString("default", {
   month: "long",
@@ -18,6 +20,7 @@ function Header({ onCreateModal, currentLocation }) {
         </div>
       </div>
       <div className="header__button-user_container">
+        <ToggleSwitch/>
         <button type="text" className="header__add-btn" onClick={onCreateModal}>
           + Add clothes
         </button>

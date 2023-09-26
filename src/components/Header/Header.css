@@ -32,8 +32,9 @@
 
 .header__button-user_container{
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 24px;
+   
 }
 
 .header__add-btn{
@@ -52,6 +53,7 @@
 
 .header__user-name{
     align-self: center;
+    margin: 0;
 }
 
 .header__user-avatar{

@@ -12,6 +12,7 @@ import {
   parseDaytimeCondition,
   parseLocation,
 } from "../utils/WeatherApi";
+import { CurrentTempUnitContext } from "../context/CurrentTempUnitContext";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const [weather, setWeather] = useState(0);
   const [dayLight, setDayLight] = useState({});
   const [location, setLocation] = useState("");
+  const[currentTempUnit, setCurrentTempUnit] = useState('C');
 
   function handleCreateModal() {
     setActiveModal("create");
@@ -41,9 +43,17 @@ function App() {
     }
   };
 
+  function handleToggleTempUnit(){
+      if(currentTempUnit === 'C'){
+        setCurrentTempUnit('F')            
+    }
+    if(currentTempUnit === 'F'){
+        setCurrentTempUnit('C')            
+    }
+  }
+
   useEffect(() => {
     if (!activeModal) return;
-
     // Function to handle ESC key press
     const handleEscKey = (event) => {
       // define the function inside useEffect not to lose the reference on rerendering
@@ -79,6 +89,7 @@ function App() {
   }, []);
 
   return (
+    <CurrentTempUnitContext.Provider value={ {currentTempUnit , handleToggleTempUnit} }>
     <div className="App">
       <Header onCreateModal={handleCreateModal} currentLocation={location} />
       <Main
@@ -168,6 +179,7 @@ function App() {
         />
       )}
     </div>
+    </CurrentTempUnitContext.Provider>
   );
 }
 

@@ -22,7 +22,7 @@ function App() {
   const [weather, setWeather] = useState(0);
   const [dayLight, setDayLight] = useState({});
   const [location, setLocation] = useState("");
-  const[currentTempUnit, setCurrentTempUnit] = useState('C');
+  const[currentTempUnit, setCurrentTempUnit] = useState('F');
 
   function handleCreateModal() {
     setActiveModal("create");

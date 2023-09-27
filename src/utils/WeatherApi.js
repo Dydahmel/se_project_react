@@ -15,10 +15,12 @@ export function getWeather() {
   return weatherApi;
 }
 
-export function parseWeatherTemp(data) {
-  const main = data.main;
-  const temperature = Math.ceil(main.temp);
-  return temperature;
+export function parseWeatherTemp(data) {  
+  const temperatureObj = {
+    F : `${Math.round(data.main.temp)}°F`,
+    C : `${Math.round((data.main.temp - 32) * 5/9)}°C`
+  };  
+  return temperatureObj;
 }
 
 export function parseWeatherCondition(data) {

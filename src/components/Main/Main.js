@@ -1,9 +1,10 @@
 import React from "react";
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import "./Main.css";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import ItemCard from "./ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
+import { CurrentTempUnitContext } from "../../context/CurrentTempUnitContext";
 
 function Main({
   currentTemperature,
@@ -12,6 +13,12 @@ function Main({
   dayLighCondition,
 }) {
   let weatherCondition = "";
+  //using context to get current temperature unit
+  const {currentTempUnit } = useContext(CurrentTempUnitContext);
+  //pick right value out of object formed by API call
+  const temp = currentTemperature?.[currentTempUnit] || 999;
+  // using only farenheit units to get weather condition
+  const tempNum = parseInt(currentTemperature?.F) || 998;  
 
   function pickWeatherCondition(currentWeather) {
     if (currentWeather >= 200 && currentWeather < 300) {
@@ -36,14 +43,14 @@ function Main({
   }
 
   const weatherType = useMemo(() => {
-    if (currentTemperature >= 86) {
+    if (tempNum >= 86) {
       return "hot";
-    } else if (currentTemperature >= 66 && currentTemperature <= 85) {
+    } else if (tempNum >= 66 && tempNum <= 85) {
       return "warm";
-    } else if (currentTemperature <= 65) {
+    } else if (tempNum <= 65) {
       return "cold";
-    }
-  }, [currentTemperature]);
+    }  
+  }, [tempNum]);
 
   const filteredCards = defaultClothingItems.filter((item) => {
     return item.weather.toLowerCase() === weatherType;
@@ -54,11 +61,11 @@ function Main({
       <WeatherCard
         day={dayLighCondition}
         weather={pickWeatherCondition(currentWeather) || "storm"}
-        temperature={currentTemperature}
+        temperature={temp}
       />
       <section className="card__section">
         <div className="card__weather">
-          Today is {currentTemperature}°F/ You may want to wear:
+          Today is {temp}/ You may want to wear:
         </div>
         <ul className="card__list">
           {filteredCards.map((card) => {

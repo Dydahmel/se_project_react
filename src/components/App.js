@@ -5,6 +5,7 @@ import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import ModalWithForm from "./ModalWithForm/ModalWithForm";
 import ItemModal from "./ItemModal/ItemModal";
+import Profile from "./Profile/Profile";
 import {
   getWeather,
   parseWeatherCondition,
@@ -14,6 +15,7 @@ import {
 } from "../utils/WeatherApi";
 import { CurrentTempUnitContext } from "../context/CurrentTempUnitContext";
 import { useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -92,12 +94,22 @@ function App() {
     <CurrentTempUnitContext.Provider value={ {currentTempUnit , handleToggleTempUnit} }>
     <div className="App">
       <Header onCreateModal={handleCreateModal} currentLocation={location} />
-      <Main
-        onSelectCard={hadleSelectedCard}
-        currentTemperature={temp}
-        currentWeather={weather}
-        dayLighCondition={dayLight}
-      />
+      <Switch>
+        <Route exact path="/">
+          <Main
+            onSelectCard={hadleSelectedCard}
+            currentTemperature={temp}
+            currentWeather={weather}
+            dayLighCondition={dayLight}
+          />
+        </Route>
+        <Route path="/profile">
+          <Profile
+          onSelectCard={hadleSelectedCard}
+          onCreateModal={handleCreateModal}          
+          />
+        </Route>
+      </Switch>
       <Footer />
       {activeModal === "create" && (
         <ModalWithForm

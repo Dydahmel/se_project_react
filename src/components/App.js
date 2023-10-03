@@ -60,8 +60,7 @@ function App() {
     evt.preventDefault()
     setClothingItems([item, ...clothingItems])
     console.log(clothingItems)
-    return clothingItems
-    
+    return clothingItems    
   }
 
   useEffect(() => {
@@ -117,7 +116,8 @@ function App() {
         <Route path="/profile">
           <Profile
           onSelectCard={hadleSelectedCard}
-          onCreateModal={handleCreateModal}          
+          onCreateModal={handleCreateModal}
+          clothingItems={clothingItems}          
           />
         </Route>
       </Switch>

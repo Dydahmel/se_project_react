@@ -1,9 +1,8 @@
 import React from "react";
 import './ClothesSection.css';
-import { defaultClothingItems } from "../../../utils/constants";
 import ItemCard from "../../Main/ItemCard/ItemCard";
 
-export default function ClothesSection({onSelectCard, onCreateModal}){
+export default function ClothesSection({onSelectCard, onCreateModal, clothingItems}){
     return(
         <section className="clothes">
             <div className="clothes__text-container">
@@ -15,7 +14,7 @@ export default function ClothesSection({onSelectCard, onCreateModal}){
                     </button>
             </div>
             <ul className="clothes__list card__list">
-            {defaultClothingItems.map((card) => {
+            {clothingItems.map((card) => {
                 return (
                 <ItemCard
                     card={card}

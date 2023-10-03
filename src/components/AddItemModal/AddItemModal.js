@@ -65,7 +65,7 @@ export default function AddItemModal({
               type="url"
               name="link"
               minLength="1"
-              maxLength="30"
+              maxLength="300"
               className="text__input"
               placeholder="Image URL"
               value={imageUrl}

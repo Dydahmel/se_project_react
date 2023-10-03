@@ -12,7 +12,7 @@ function ItemModal({ selectedCard, onCloseModal, onCloseModalByOverlay }) {
         ></button>
         <img
           alt={selectedCard.name}
-          src={selectedCard.link}
+          src={selectedCard.link || selectedCard.imageUrl}
           className="modal__img"
         />
         <div className="modal__caption">

@@ -3,7 +3,6 @@ import "./App.css";
 import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
-import ModalWithForm from "./ModalWithForm/ModalWithForm";
 import ItemModal from "./ItemModal/ItemModal";
 import Profile from "./Profile/Profile";
 import {
@@ -16,6 +15,8 @@ import {
 import { CurrentTempUnitContext } from "../context/CurrentTempUnitContext";
 import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
+import AddItemModal from "./AddItemModal/AddItemModal";
+import { defaultClothingItems } from "../utils/constants";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -25,6 +26,7 @@ function App() {
   const [dayLight, setDayLight] = useState({});
   const [location, setLocation] = useState("");
   const[currentTempUnit, setCurrentTempUnit] = useState('F');
+  const[clothingItems, setClothingItems] = useState(defaultClothingItems)
 
   function handleCreateModal() {
     setActiveModal("create");
@@ -52,6 +54,14 @@ function App() {
     if(currentTempUnit === 'F'){
         setCurrentTempUnit('C')            
     }
+  }  
+
+  function handleSubmit(evt, item){
+    evt.preventDefault()
+    setClothingItems([item, ...clothingItems])
+    console.log(clothingItems)
+    return clothingItems
+    
   }
 
   useEffect(() => {
@@ -101,6 +111,7 @@ function App() {
             currentTemperature={temp}
             currentWeather={weather}
             dayLighCondition={dayLight}
+            clothingItems={clothingItems}
           />
         </Route>
         <Route path="/profile">
@@ -112,76 +123,15 @@ function App() {
       </Switch>
       <Footer />
       {activeModal === "create" && (
-        <ModalWithForm
+        <AddItemModal
           title={"New garment"}
           buttonText={"Add garment"}
+          isOpen ={activeModal === "create"}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
-        >
-          <label className="form__label text__label">
-            Name
-            <input
-              type="text"
-              name="name"
-              minLength="1"
-              maxLength="30"
-              className="text__input"
-              placeholder="Name"
-            />
-          </label>
-          <label className="form__label text__label">
-            Image
-            <input
-              type="url"
-              name="link"
-              minLength="1"
-              maxLength="30"
-              className="text__input"
-              placeholder="Image URL"
-            />
-          </label>
-          <div className="form__radio-container">
-            <p className="form__subtitle">Select the weather type:</p>
-            <div>
-              <div>
-                <label className="form__label radio__label" id="hot">
-                  <input
-                    type="radio"
-                    id="hot"
-                    value="hot"
-                    className="radio__input"
-                    name="radio__input"
-                  />
-                  Hot
-                </label>
-              </div>
-              <div>
-                <label className="form__label radio__label" id="warm">
-                  <input
-                    type="radio"
-                    id="warm"
-                    value="warm"
-                    className="radio__input"
-                    name="radio__input"
-                  />
-                  Warm
-                </label>
-              </div>
-              <div>
-                <label className="form__label radio__label" id="cold">
-                  <input
-                    type="radio"
-                    id="cold"
-                    value="cold"
-                    className="radio__input"
-                    name="radio__input"
-                  />
-                  Cold
-                </label>
-              </div>
-            </div>
-          </div>
-        </ModalWithForm>
+          onSubmit={handleSubmit}
+        />
+                  
       )}
       {activeModal === "preview" && (
         <ItemModal

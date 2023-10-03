@@ -3,6 +3,7 @@ import "./Header.css";
 import headerLogo from "../../images/header__logo.svg";
 import headerAvatar from "../../images/header__avatar.svg";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 
 const currentDate = new Date().toLocaleString("default", {
@@ -14,7 +15,9 @@ function Header({ onCreateModal, currentLocation }) {
   return (
     <header className="header">
       <div className="header__logo-date_container">
-        <img className="header__logo" src={headerLogo} alt="header-logo" />
+        <Link to="/"> 
+          <img className="header__logo" src={headerLogo} alt="header-logo" />
+        </Link>
         <div className="header__date">
           {currentDate}, {currentLocation}
         </div>
@@ -24,7 +27,7 @@ function Header({ onCreateModal, currentLocation }) {
         <button type="text" className="header__add-btn" onClick={onCreateModal}>
           + Add clothes
         </button>
-        <p className="header__user-name">Name and Last name</p>
+        <Link to="/profile" className="header__user-name">Name and Last name</Link>
         <img
           className="header__user-avatar"
           src={headerAvatar}

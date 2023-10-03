@@ -54,6 +54,8 @@
 .header__user-name{
     align-self: center;
     margin: 0;
+    text-decoration: none;
+    color: black;
 }
 
 .header__user-avatar{

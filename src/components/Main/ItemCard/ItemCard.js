@@ -6,7 +6,7 @@ function ItemCard({ card, onSelectCard }) {
     <li className="card__item">
       <div>
         <img
-          src={card.link}
+          src={card.link || card.imageUrl}
           className="card__image"
           alt={card.name}
           onClick={() => onSelectCard(card)}

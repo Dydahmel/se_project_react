@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../utils/constants";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -25,9 +27,9 @@ function App() {
   const [weather, setWeather] = useState(0);
   const [dayLight, setDayLight] = useState({});
   const [location, setLocation] = useState("");
-  const[currentTempUnit, setCurrentTempUnit] = useState('F');
-  const[clothingItems, setClothingItems] = useState(defaultClothingItems)
-
+  const [currentTempUnit, setCurrentTempUnit] = useState('F');
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems)
+ 
   function handleCreateModal() {
     setActiveModal("create");
   }
@@ -40,6 +42,12 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   }
+
+  function handleDeleteModal(){
+    setActiveModal("confirmation")
+  }
+
+
 
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal")) {
@@ -138,8 +146,18 @@ function App() {
           selectedCard={selectedCard}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
+          onDelete={handleDeleteModal}
         />
       )}
+      {activeModal === "confirmation" && 
+        <ConfirmationModal 
+            onCloseModal={handleCloseModal}          
+            onCloseModalByOverlay={handleOverlayClick}
+            onCancelClick={hadleSelectedCard}
+            selectedCard={selectedCard}
+        />
+      }
+      
     </div>
     </CurrentTempUnitContext.Provider>
   );

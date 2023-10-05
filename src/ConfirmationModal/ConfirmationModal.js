@@ -1,7 +1,7 @@
 import React from "react";
 import "../components/ModalWithForm/ModalWithForm.css"
 
-export default function ConfirmationModal({onCloseModal, onCloseModalByOverlay, onCancelClick}){
+export default function ConfirmationModal({onCloseModal, onCloseModalByOverlay, onCancelClick, onYesClick}){
     return(
         <div className={`modal`} onClick={onCloseModalByOverlay}>
             <div className="modal__content">
@@ -15,7 +15,7 @@ export default function ConfirmationModal({onCloseModal, onCloseModalByOverlay, 
                         <p className="modal__confirmation-text">Are you sure you want to delete this item?</p> 
                         <p className="modal__confirmation-text">This action is irreversible.</p>
                     </div>          
-                    <button type="text" className="modal__confirmation-btn modal__confirmation-yes-btn" >Yes, delete item</button>
+                    <button type="text" className="modal__confirmation-btn modal__confirmation-yes-btn"onClick={onYesClick} >Yes, delete item</button>
                     <button type="text" className="modal__confirmation-btn" onClick={onCancelClick} >Cancel</button>          
                 </div> 
             </div>

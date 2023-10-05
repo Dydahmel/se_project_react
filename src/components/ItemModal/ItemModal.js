@@ -21,7 +21,7 @@ function ItemModal({ selectedCard, onCloseModal, onCloseModalByOverlay, onDelete
             <p className="modal__text ">{selectedCard.name}</p>
             <p className="modal__text">Weather: {selectedCard.weather}</p>
           </div>          
-          <button type="text" className="modal__delete-btn" onClick={onDelete}>Delete item</button>          
+          <button type="text" className="modal__delete-btn" onClick={() => onDelete(selectedCard)}>Delete item</button>          
         </div>        
       </div>
     </div>

@@ -16,8 +16,8 @@ import { CurrentTempUnitContext } from "../context/CurrentTempUnitContext";
 import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../utils/constants";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import api from "../utils/api";
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
   const [dayLight, setDayLight] = useState({});
   const [location, setLocation] = useState("");
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems)
+  const [clothingItems, setClothingItems] = useState([])
  
   function handleCreateModal() {
     setActiveModal("create");
@@ -44,10 +44,13 @@ function App() {
   }
 
   function handleDeleteModal(){
-    setActiveModal("confirmation")
+    setActiveModal("confirmation")   
   }
 
-
+  function handleDeleteCard(){
+    
+    console.log("it's deleting!")
+  }
 
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal")) {
@@ -64,10 +67,16 @@ function App() {
     }
   }  
 
-  function handleSubmit(evt, item){
-    evt.preventDefault()
-    setClothingItems([item, ...clothingItems])
-    console.log(clothingItems)
+  function handleSubmit(item){ 
+    api.addItems(item)
+      .then((newItem)=>{
+        
+        setClothingItems([newItem, ...clothingItems])
+        handleCloseModal()
+      })
+      .catch((err) => {
+        console.error(err);
+      });          
     return clothingItems    
   }
 
@@ -106,6 +115,16 @@ function App() {
         console.error(err);
       });
   }, []);
+
+  useEffect(()=>{
+    api.getItems()
+      .then((data)=>{
+        setClothingItems(data)     
+      })
+      .catch((err)=>{
+        console.error(err)
+      })
+  }, [])
 
   return (
     <CurrentTempUnitContext.Provider value={ {currentTempUnit , handleToggleTempUnit} }>
@@ -146,15 +165,16 @@ function App() {
           selectedCard={selectedCard}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
-          onDelete={handleDeleteModal}
+          onDelete={handleDeleteModal}          
         />
       )}
       {activeModal === "confirmation" && 
         <ConfirmationModal 
             onCloseModal={handleCloseModal}          
             onCloseModalByOverlay={handleOverlayClick}
-            onCancelClick={hadleSelectedCard}
+            onCancelClick={() => hadleSelectedCard(selectedCard)}
             selectedCard={selectedCard}
+            onYesClick={handleDeleteCard}
         />
       }
       

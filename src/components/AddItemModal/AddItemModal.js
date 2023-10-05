@@ -25,6 +25,13 @@ export default function AddItemModal({
         setItemWeather(evt.target.value)        
     }
 
+    function handleSubmit(evt){
+      evt.preventDefault()
+      console.log({name, weather, imageUrl})
+      onSubmit({name, weather, imageUrl})
+
+    }
+
  
     useEffect(()=>{
         if(isOpen){
@@ -34,16 +41,13 @@ export default function AddItemModal({
         }
     },[isOpen])
 
-
-
-
     return(
         <ModalWithForm
           title={title}
           buttonText={buttonText}
           onCloseModal={onCloseModal}
           onCloseModalByOverlay={onCloseModalByOverlay}
-          onSubmit={(e) => onSubmit(e, {name, weather, imageUrl})}
+          onSubmit={(evt) => handleSubmit(evt)}
           isOpen={isOpen}          
         >
           <label className="form__label text__label">

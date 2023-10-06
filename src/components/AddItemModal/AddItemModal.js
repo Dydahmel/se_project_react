@@ -26,10 +26,8 @@ export default function AddItemModal({
     }
 
     function handleSubmit(evt){
-      evt.preventDefault()
-      console.log({name, weather, imageUrl})
+      evt.preventDefault()      
       onSubmit({name, weather, imageUrl})
-
     }
 
  

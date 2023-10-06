@@ -48,7 +48,14 @@ function App() {
   }
 
   function handleDeleteCard(){
-    
+    api.removeItem(selectedCard._id)
+      .then(()=>{
+        setClothingItems((clothingItems) => clothingItems.filter((item)=> item._id !== selectedCard._id))
+        handleCloseModal(); 
+      })
+      .catch((err) => {
+        console.error(err);
+      }); 
     console.log("it's deleting!")
   }
 
@@ -67,17 +74,22 @@ function App() {
     }
   }  
 
-  function handleSubmit(item){ 
-    api.addItems(item)
-      .then((newItem)=>{
-        
-        setClothingItems([newItem, ...clothingItems])
+  function handleSubmit(input){
+    const newItem ={
+      name: input.name,
+      weather: input.weather,
+      imageUrl: input.imageUrl
+    } 
+    console.log(newItem)    
+    api.addItems(newItem)
+      .then((item)=>{   
+        console.log(item)             
+        setClothingItems([item, ...clothingItems])
         handleCloseModal()
       })
       .catch((err) => {
         console.error(err);
       });          
-    return clothingItems    
   }
 
   useEffect(() => {

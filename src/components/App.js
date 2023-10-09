@@ -27,7 +27,7 @@ function App() {
   const [weather, setWeather] = useState(0);
   const [dayLight, setDayLight] = useState({});
   const [location, setLocation] = useState("");
-  const [currentTempUnit, setCurrentTempUnit] = useState('F');
+  const [currentTemperatureUnit, setCurrentTempUnit] = useState('F');
   const [clothingItems, setClothingItems] = useState([])
  
   function handleCreateModal() {
@@ -65,11 +65,11 @@ function App() {
     }
   };
 
-  function handleToggleTempUnit(){
-      if(currentTempUnit === 'C'){
+  function handleToggleSwitchChange(){
+      if(currentTemperatureUnit === 'C'){
         setCurrentTempUnit('F')            
     }
-    if(currentTempUnit === 'F'){
+    if(currentTemperatureUnit === 'F'){
         setCurrentTempUnit('C')            
     }
   }  
@@ -139,7 +139,7 @@ function App() {
   }, [])
 
   return (
-    <CurrentTemperatureUnitContext.Provider value={ {currentTempUnit , handleToggleTempUnit} }>
+    <CurrentTemperatureUnitContext.Provider value={ {currentTemperatureUnit , handleToggleSwitchChange} }>
     <div className="App">
       <Header onCreateModal={handleCreateModal} currentLocation={location} />
       <Switch>

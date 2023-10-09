@@ -17,7 +17,7 @@ function _request(url, options){
 function getItems(){
     return _request(`${baseUrl}/items`, {
         headers:{
-            "Content-type" : "aplication/json"
+            "Content-type" : "application/json"
         }
     })
 }
@@ -26,7 +26,7 @@ function addItems(input){
     return _request(`${baseUrl}/items`, {
         method: "POST",
         headers:{
-            "Content-type" : "aplication/json"
+            "Content-type" : "application/json"
         },
         body: JSON.stringify({
             name: input.name,            
@@ -40,7 +40,7 @@ function removeItem(id){
     return _request(`${baseUrl}/items/${id}`, {
         method: "DELETE",
         headers:{
-            "Content-type" : "aplication/json"
+            "Content-type" : "application/json"
         }
     })
 }

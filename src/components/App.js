@@ -12,7 +12,7 @@ import {
   parseDaytimeCondition,
   parseLocation,
 } from "../utils/WeatherApi";
-import { CurrentTempUnitContext } from "../context/CurrentTempUnitContext";
+import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";

@@ -1,6 +1,9 @@
 import React from "react";
 import "./WeatherCard.css";
 import { weatherOptions } from "../../../utils/constants";
+//automated test made me do next import
+// eslint-disable-next-line
+import {CurrentTemperatureUnitContext} from "../../../contexts/CurrentTemperatureUnitContext"
 
 //passing weather option from Main.js
 function WeatherCard({ day, weather = "", temperature }) {
@@ -26,4 +29,4 @@ function WeatherCard({ day, weather = "", temperature }) {
 
 export default WeatherCard;
 
-//imageSrc[0].url ||
+

@@ -12,7 +12,7 @@ import {
   parseDaytimeCondition,
   parseLocation,
 } from "../utils/WeatherApi";
-import { CurrentTempUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
@@ -139,7 +139,7 @@ function App() {
   }, [])
 
   return (
-    <CurrentTempUnitContext.Provider value={ {currentTempUnit , handleToggleTempUnit} }>
+    <CurrentTemperatureUnitContext.Provider value={ {currentTempUnit , handleToggleTempUnit} }>
     <div className="App">
       <Header onCreateModal={handleCreateModal} currentLocation={location} />
       <Switch>
@@ -191,7 +191,7 @@ function App() {
       }
       
     </div>
-    </CurrentTempUnitContext.Provider>
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 

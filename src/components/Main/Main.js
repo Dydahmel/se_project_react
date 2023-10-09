@@ -3,7 +3,7 @@ import { useMemo, useContext } from "react";
 import "./Main.css";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import ItemCard from "./ItemCard/ItemCard";
-import { CurrentTempUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 function Main({
   currentTemperature,
@@ -14,7 +14,7 @@ function Main({
 }) {
   let weatherCondition = "";
   //using context to get current temperature unit
-  const {currentTempUnit } = useContext(CurrentTempUnitContext);
+  const {currentTempUnit } = useContext(CurrentTemperatureUnitContext);
   //pick right value out of object formed by API call
   const temp = currentTemperature?.[currentTempUnit] || 999;
   // using only farenheit units to get weather condition

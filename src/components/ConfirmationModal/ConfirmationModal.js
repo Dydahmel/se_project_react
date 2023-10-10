@@ -6,6 +6,7 @@ export default function ConfirmationModal({
   onCloseModalByOverlay,
   onCancelClick,
   onYesClick,
+  confirmationButtonText,
 }) {
   return (
     <div className={`modal`} onClick={onCloseModalByOverlay}>
@@ -29,7 +30,7 @@ export default function ConfirmationModal({
             className="modal__confirmation-btn modal__confirmation-yes-btn"
             onClick={onYesClick}
           >
-            Yes, delete item
+            {confirmationButtonText}
           </button>
           <button
             type="text"

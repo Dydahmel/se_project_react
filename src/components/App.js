@@ -28,7 +28,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [currentTemperatureUnit, setCurrentTempUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  //const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleCreateModal() {
     setActiveModal("create");
@@ -48,6 +48,7 @@ function App() {
   }
 
   function handleDeleteCard() {
+    setIsLoading(true);
     api
       .removeItem(selectedCard._id)
       .then(() => {
@@ -55,11 +56,9 @@ function App() {
           clothingItems.filter((item) => item._id !== selectedCard._id),
         );
         handleCloseModal();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    console.log("it's deleting!");
+      })      
+      .catch(console.error)
+      .finally(()=>setIsLoading(false));
   }
 
   const handleOverlayClick = (event) => {
@@ -76,6 +75,19 @@ function App() {
       setCurrentTempUnit("C");
     }
   }
+//uniwersal handler for all submits
+  // function handleSubmit(request) {
+  //   // start loading
+  //   setIsLoading(true);
+  //   request()
+  //     // we need to close only in `then`
+  //     .then(handleCloseModal)
+  //     // we need to catch possible errors
+  //     // console.error is used to handle errors if you don’t have any other ways for that
+  //     .catch(console.error)
+  //     // and in finally we need to stop loading
+  //     .finally(() => setIsLoading(false));
+  // }
 
   function handleSubmit(input) {
     const newItem = {
@@ -83,15 +95,17 @@ function App() {
       weather: input.weather,
       imageUrl: input.imageUrl,
     };
-    console.log(newItem);
+    setIsLoading(true);
     api
       .addItems(newItem)
       .then((item) => {
-        console.log(item);
+        setIsLoading(false);
         setClothingItems([item, ...clothingItems]);
         handleCloseModal();
-      })
-      .catch(console.error);
+      })      
+      .catch(console.error)
+      .finally(()=>setIsLoading(false))
+      
   }
 
   useEffect(() => {
@@ -125,9 +139,7 @@ function App() {
         const currentLocation = parseLocation(data);
         setLocation(currentLocation);
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -167,7 +179,8 @@ function App() {
         {activeModal === "create" && (
           <AddItemModal
             title={"New garment"}
-            buttonText={"Add garment"}
+            buttonText={isLoading ? "Saving..." : "Add garment"}
+            isLoading={isLoading}
             isOpen={activeModal === "create"}
             onCloseModal={handleCloseModal}
             onCloseModalByOverlay={handleOverlayClick}
@@ -189,6 +202,7 @@ function App() {
             onCancelClick={() => hadleSelectedCard(selectedCard)}
             selectedCard={selectedCard}
             onYesClick={handleDeleteCard}
+            confirmationButtonText={isLoading ? "Deleting..." : "Yes, delete item"}
           />
         )}
       </div>

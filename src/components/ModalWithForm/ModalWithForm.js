@@ -8,7 +8,7 @@ function ModalWithForm({
   title,
   children,
   buttonText,
-  onSubmit,
+  onSubmit
 }) {
   return (
     <div

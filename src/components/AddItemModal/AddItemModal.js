@@ -9,19 +9,6 @@ export default function AddItemModal({
   onSubmit,
   isOpen,
 }) {
-  // const[name,setName] = useState("");
-  // const[imageUrl,setUrl] = useState("");
-  // const[weather,setItemWeather] = useState("");
-  // function handleAddName(evt){
-  //     setName(evt.target.value)
-  // }
-  // function handleAddUrl(evt){
-  //     setUrl(evt.target.value)
-  // }
-  // function handleAddItemWeather(evt){
-  //     setItemWeather(evt.target.value)
-  // }
-
   function handleSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);

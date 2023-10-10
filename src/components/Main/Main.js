@@ -10,15 +10,15 @@ function Main({
   onSelectCard,
   currentWeather,
   dayLighCondition,
-  clothingItems
+  clothingItems,
 }) {
   let weatherCondition = "";
   //using context to get current temperature unit
-  const {currentTempUnit } = useContext(CurrentTemperatureUnitContext);
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   //pick right value out of object formed by API call
-  const temp = currentTemperature?.[currentTempUnit] || 999;
+  const temp = currentTemperature?.[currentTemperatureUnit] || 999;
   // using only farenheit units to get weather condition
-  const tempNum = parseInt(currentTemperature?.F) || 998;  
+  const tempNum = parseInt(currentTemperature?.F) || 998;
 
   function pickWeatherCondition(currentWeather) {
     if (currentWeather >= 200 && currentWeather < 300) {
@@ -49,7 +49,7 @@ function Main({
       return "warm";
     } else if (tempNum <= 65) {
       return "cold";
-    }  
+    }
   }, [tempNum]);
 
   const filteredCards = clothingItems.filter((item) => {

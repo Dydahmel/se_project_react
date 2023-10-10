@@ -1,9 +1,13 @@
 import React from "react";
 import "../ModalWithForm/ModalWithForm.css";
 
-function ItemModal({ selectedCard, onCloseModal, onCloseModalByOverlay, onDelete }) {
+function ItemModal({
+  selectedCard,
+  onCloseModal,
+  onCloseModalByOverlay,
+  onDelete,
+}) {
   return (
-   
     <div className={`modal`} onClick={onCloseModalByOverlay}>
       <div className="modal__content modal__content-img">
         <button
@@ -20,9 +24,15 @@ function ItemModal({ selectedCard, onCloseModal, onCloseModalByOverlay, onDelete
           <div>
             <p className="modal__text ">{selectedCard.name}</p>
             <p className="modal__text">Weather: {selectedCard.weather}</p>
-          </div>          
-          <button type="text" className="modal__delete-btn" onClick={() => onDelete(selectedCard)}>Delete item</button>          
-        </div>        
+          </div>
+          <button
+            type="text"
+            className="modal__delete-btn"
+            onClick={() => onDelete(selectedCard)}
+          >
+            Delete item
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -47,20 +47,6 @@ function App() {
     setActiveModal("confirmation");
   }
 
-  function handleDeleteCard() {
-    setIsLoading(true);
-    api
-      .removeItem(selectedCard._id)
-      .then(() => {
-        setClothingItems((clothingItems) =>
-          clothingItems.filter((item) => item._id !== selectedCard._id),
-        );
-        handleCloseModal();
-      })      
-      .catch(console.error)
-      .finally(()=>setIsLoading(false));
-  }
-
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal")) {
       handleCloseModal();
@@ -75,37 +61,47 @@ function App() {
       setCurrentTempUnit("C");
     }
   }
-//uniwersal handler for all submits
-  // function handleSubmit(request) {
-  //   // start loading
-  //   setIsLoading(true);
-  //   request()
-  //     // we need to close only in `then`
-  //     .then(handleCloseModal)
-  //     // we need to catch possible errors
-  //     // console.error is used to handle errors if you don’t have any other ways for that
-  //     .catch(console.error)
-  //     // and in finally we need to stop loading
-  //     .finally(() => setIsLoading(false));
-  // }
 
-  function handleSubmit(input) {
+  //uniwersal handler for all submits
+  function handleSubmit(request) {
+    // start loading
+    setIsLoading(true);
+    request()
+      // we need to close only in `then`
+      .then(handleCloseModal)
+      // we need to catch possible errors
+      // console.error is used to handle errors if you don’t have any other ways for that
+      .catch(console.error)
+      // and in finally we need to stop loading
+      .finally(() => setIsLoading(false));
+  }
+
+  // here is an example
+  function handleAddFormSubmit(input) {
     const newItem = {
       name: input.name,
       weather: input.weather,
       imageUrl: input.imageUrl,
     };
-    setIsLoading(true);
-    api
-      .addItems(newItem)
-      .then((item) => {
-        setIsLoading(false);
+    // here we create a function that returns a promise
+    function makeRequest() {
+      return api.addItems(newItem).then((item) => {
         setClothingItems([item, ...clothingItems]);
-        handleCloseModal();
-      })      
-      .catch(console.error)
-      .finally(()=>setIsLoading(false))
-      
+      });
+    }
+    // here we call handleSubmit passing the request
+    handleSubmit(makeRequest);
+  }
+
+  function handleDeleteCard() {
+    function makeRequest() {
+      return api.removeItem(selectedCard._id).then(() => {
+        setClothingItems((clothingItems) =>
+          clothingItems.filter((item) => item._id !== selectedCard._id),
+        );
+      });
+    }
+    handleSubmit(makeRequest);
   }
 
   useEffect(() => {
@@ -184,7 +180,7 @@ function App() {
             isOpen={activeModal === "create"}
             onCloseModal={handleCloseModal}
             onCloseModalByOverlay={handleOverlayClick}
-            onSubmit={handleSubmit}
+            onSubmit={handleAddFormSubmit}
           />
         )}
         {activeModal === "preview" && (
@@ -202,7 +198,9 @@ function App() {
             onCancelClick={() => hadleSelectedCard(selectedCard)}
             selectedCard={selectedCard}
             onYesClick={handleDeleteCard}
-            confirmationButtonText={isLoading ? "Deleting..." : "Yes, delete item"}
+            confirmationButtonText={
+              isLoading ? "Deleting..." : "Yes, delete item"
+            }
           />
         )}
       </div>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import useForm from "../../hooks/useForm";
 
 export default function AddItemModal({
   title,
@@ -14,26 +15,18 @@ export default function AddItemModal({
     onSubmit(values);
   }
 
-  function useForm(inputValues) {
-    //creating state for input values
-    const [values, setValues] = useState(inputValues);
-    //onChange handler
-    const handleChange = (event) => {
-      //???????
-      const { value, name } = event.target;
-      //set values based on input field
-      setValues({ ...values, [name]: value });
-    };
-    //idk why are we returnig setValues
-    return { values, handleChange, setValues };
-  }
-  //?????????
+  
+  
   // eslint-disable-next-line
-  const { values, handleChange, setValues } = useForm({
-    name: "",
-    weather: "",
-    imageUrl: "",
-  });
+  const { values, handleChange, setValues } = useForm({});
+  
+  useEffect(() => {
+    setValues({
+      name: "",
+      weather: "",
+      imageUrl: "",
+    });
+  }, [isOpen]);
 
   return (
     <ModalWithForm

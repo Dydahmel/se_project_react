@@ -65,3 +65,8 @@ export const weatherOptions = [
 export const latitude = 40.6;
 export const longitude = -73.95;
 export const APIkey = "89c0092216c33711bbf4446badc558c2";
+export const initialValues = {
+  name: "",
+  weather: "",
+  imageUrl: "",
+};

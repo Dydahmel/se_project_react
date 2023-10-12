@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
+import { initialValues } from "../../utils/constants";
 
 export default function AddItemModal({
   title,
@@ -10,28 +11,18 @@ export default function AddItemModal({
   onSubmit,
   isOpen,
 }) {
-
-  const { values, handleChange, setValues } = useForm({
-      name: "",
-      weather: "",
-      imageUrl: "",
-  });
+  const { values, handleChange, setValues } = useForm(initialValues);
 
   useEffect(() => {
-    setValues({
-      name: "",
-      weather: "",
-      imageUrl: "",
-    });
-  // eslint-disable-next-line    
+    setValues(initialValues);
+    // eslint-disable-next-line
   }, [isOpen]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
-  
-  
+
   return (
     <ModalWithForm
       title={title}
@@ -71,7 +62,7 @@ export default function AddItemModal({
         <p className="form__subtitle">Select the weather type:</p>
         <div>
           <div>
-            <label className="form__label radio__label" id="hot">
+            <label className="form__label radio__label">
               <input
                 type="radio"
                 id="hot"
@@ -85,7 +76,7 @@ export default function AddItemModal({
             </label>
           </div>
           <div>
-            <label className="form__label radio__label" id="warm">
+            <label className="form__label radio__label">
               <input
                 type="radio"
                 id="warm"
@@ -99,7 +90,7 @@ export default function AddItemModal({
             </label>
           </div>
           <div>
-            <label className="form__label radio__label" id="cold">
+            <label className="form__label radio__label">
               <input
                 type="radio"
                 id="cold"

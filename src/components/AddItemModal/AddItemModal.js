@@ -26,7 +26,7 @@ export default function AddItemModal({
       weather: "",
       imageUrl: "",
     });
-  }, [isOpen]);
+  }, [isOpen, setValues]);
 
   return (
     <ModalWithForm

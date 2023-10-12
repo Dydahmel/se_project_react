@@ -10,24 +10,28 @@ export default function AddItemModal({
   onSubmit,
   isOpen,
 }) {
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onSubmit(values);
-  }
 
-  
-  
-  // eslint-disable-next-line
-  const { values, handleChange, setValues } = useForm({});
-  
+  const { values, handleChange, setValues } = useForm({
+      name: "",
+      weather: "",
+      imageUrl: "",
+  });
+
   useEffect(() => {
     setValues({
       name: "",
       weather: "",
       imageUrl: "",
     });
-  }, [isOpen, setValues]);
+  // eslint-disable-next-line    
+  }, [isOpen]);
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onSubmit(values);
+  }
+  
+  
   return (
     <ModalWithForm
       title={title}

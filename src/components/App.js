@@ -19,6 +19,8 @@ import AddItemModal from "./AddItemModal/AddItemModal";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import { api } from "../utils/api";
 
+//json-server --watch db.json --id _id --port 3001
+
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});

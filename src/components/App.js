@@ -18,6 +18,8 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import { api } from "../utils/api";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "./LoginModal/LoginModal";
 
 //json-server --watch db.json --id _id --port 3001
 
@@ -45,6 +47,14 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleSignUpModal(){
+    setActiveModal("signUp");
+  }
+
+  function handleLoginModal(){
+    setActiveModal("login");
+  }
+
   function handleDeleteModal() {
     setActiveModal("confirmation");
   }
@@ -64,7 +74,7 @@ function App() {
     }
   }
 
-  //uniwersal handler for all submits
+  //universal handler for all submits
   function handleSubmit(request) {
     // start loading
     setIsLoading(true);
@@ -78,7 +88,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  // here is an example
+  
   function handleAddFormSubmit(input) {
     const newItem = {
       name: input.name,
@@ -154,7 +164,12 @@ function App() {
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <div className="App">
-        <Header onCreateModal={handleCreateModal} currentLocation={location} />
+        <Header 
+        onCreateModal={handleCreateModal} 
+        currentLocation={location} 
+        onSignUpModal={handleSignUpModal}
+        onLoginModal={handleLoginModal}
+        />
         <Switch>
           <Route exact path="/">
             <Main
@@ -205,6 +220,23 @@ function App() {
             }
           />
         )}
+        {activeModal === "signUp" && (
+          <RegisterModal
+          title={"Sign up"}
+          buttonText={"Next"}
+          onCloseModal={handleCloseModal}
+          onCloseModalByOverlay={handleOverlayClick}
+          />
+        )}
+        {activeModal === "login" && (
+          <LoginModal
+          title={"Log in"}
+          buttonText={"Log in"}
+          onCloseModal={handleCloseModal}
+          onCloseModalByOverlay={handleOverlayClick}
+          />
+        )
+        }
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

@@ -10,7 +10,7 @@ const currentDate = new Date().toLocaleString("default", {
   day: "numeric",
 });
 
-function Header({ onCreateModal, currentLocation }) {
+function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal }) {
   return (
     <header className="header">
       <div className="header__logo-date_container">
@@ -23,12 +23,18 @@ function Header({ onCreateModal, currentLocation }) {
       </div>
       <div className="header__button-user_container">
         <ToggleSwitch />
-        <button type="text" className="header__add-btn" onClick={onCreateModal}>
-          + Add clothes
+        <button type="text" className="header__add-btn" onClick={onLoginModal}>
+          Log in
         </button>
-        <Link to="/profile" className="header__user-name">
+        {/* <button type="text" className="header__add-btn" onClick={onCreateModal}>
+          + Add clothes
+        </button> */}
+        <button type="text" className="header__add-btn" onClick={onSignUpModal}>
+          Sign Up
+        </button>         
+        {/* <Link to="/profile" className="header__user-name">
           Name and Last name
-        </Link>
+        </Link> */}
         <img
           className="header__user-avatar"
           src={headerAvatar}

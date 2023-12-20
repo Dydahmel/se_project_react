@@ -18,8 +18,9 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import { api } from "../utils/api";
-import RegisterModal from "../RegisterModal/RegisterModal";
+import RegisterModal from "./RegisterModal/RegisterModal";
 import LoginModal from "./LoginModal/LoginModal";
+import { auth } from "../utils/auth";
 
 //json-server --watch db.json --id _id --port 3001
 
@@ -88,6 +89,24 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
+  function handleSignUpSubmit(input){
+    const newUser = {
+      email: input.email,
+      password: input.password,
+      name: input.name, 
+      avatar: input.avatar,
+    }
+    console.log(newUser)
+  }
+
+  function handleLoginSubmit(input){
+    const user = {
+      email: input.email,
+      password: input.password,
+    }
+    console.log(user)
+  }
+
   
   function handleAddFormSubmit(input) {
     const newItem = {
@@ -154,6 +173,7 @@ function App() {
     api
       .getItems()
       .then((data) => {
+        console.log(data)
         setClothingItems(data);
       })
       .catch(console.error);
@@ -226,6 +246,7 @@ function App() {
           buttonText={"Next"}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
+          onSubmit={handleSignUpSubmit}
           />
         )}
         {activeModal === "login" && (
@@ -234,6 +255,7 @@ function App() {
           buttonText={"Log in"}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
+          onSubmit={handleLoginSubmit}
           />
         )
         }

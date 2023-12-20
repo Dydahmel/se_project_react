@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
-import { initialValues } from "../../utils/constants";
+import { getInitialValues } from "../../utils/initialValues";
 
 export default function AddItemModal({
   title,
@@ -11,6 +11,7 @@ export default function AddItemModal({
   onSubmit,
   isOpen,
 }) {
+  const initialValues = getInitialValues('addItem')
   const { values, handleChange, setValues } = useForm(initialValues);
 
   useEffect(() => {

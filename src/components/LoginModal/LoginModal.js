@@ -1,20 +1,43 @@
 import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-
+import useForm from "../../hooks/useForm";
+import { getInitialValues } from "../../utils/initialValues";
+import { useEffect } from "react";
 
 export default function LoginModal({
     title,
     buttonText,
     onCloseModal,
-    onCloseModalByOverlay
+    onCloseModalByOverlay,
+    onSubmit,
+    isOpen
 
 }){
+    const initialValues = getInitialValues('login')
+
+
+    const { values, handleChange, setValues } = useForm(initialValues);
+
+    useEffect(() => {
+        setValues(initialValues);
+        // eslint-disable-next-line
+    }, [isOpen]);
+
+    
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onSubmit(values);
+    }
+
+
     return(
         <ModalWithForm
         title={title}
         buttonText={buttonText}
         onCloseModal={onCloseModal}
         onCloseModalByOverlay={onCloseModalByOverlay}
+        onSubmit={handleSubmit}
+        isOpen={isOpen}
         >
             <label className="form__label text__label">
             Email*
@@ -25,8 +48,8 @@ export default function LoginModal({
             maxLength="30"
             className="text__input"
             placeholder="Email"
-            //value={values.name}
-            // onChange={handleChange}
+            value={values.email}
+            onChange={handleChange}
                 />
             </label>
             <label className="form__label text__label">
@@ -38,8 +61,8 @@ export default function LoginModal({
                 maxLength="300"
                 className="text__input"
                 placeholder="Password"
-                //value={values.imageUrl}
-                //onChange={handleChange}
+                value={values.password}
+                onChange={handleChange}
                 />
             </label>
 

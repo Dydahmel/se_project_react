@@ -1,5 +1,8 @@
-import React from "react";
-import ModalWithForm from "../components/ModalWithForm/ModalWithForm";
+import React, {useEffect} from "react";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import useForm from "../../hooks/useForm";
+import { getInitialValues } from "../../utils/initialValues";
+
 
 
 
@@ -11,17 +14,33 @@ export default function RegisterModal({
     buttonText,
     onCloseModal,
     onCloseModalByOverlay,
-    //onSubmit,
-    //isOpen
+    onSubmit,
+    isOpen
 }){
+    const initialValues = getInitialValues('signUp')
+
+
+    const { values, handleChange, setValues } = useForm(initialValues);
+
+    useEffect(() => {
+        setValues(initialValues);
+        // eslint-disable-next-line
+    }, [isOpen]);
+
+    
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onSubmit(values);
+    }
+
     return(
         <ModalWithForm
         title={title}
         buttonText={buttonText}
         onCloseModal={onCloseModal}
         onCloseModalByOverlay={onCloseModalByOverlay}
-        //onSubmit={handleSubmit}
-        //isOpen={isOpen}        
+        onSubmit={handleSubmit}
+        isOpen={isOpen}        
         >
            <label className="form__label text__label">
             Email*
@@ -32,8 +51,9 @@ export default function RegisterModal({
             maxLength="30"
             className="text__input"
             placeholder="Email"
-            //value={values.name}
-            // onChange={handleChange}
+            value={values.email}
+            // value={props.value ?? wheelSize}
+            onChange={handleChange}
                 />
             </label>
             <label className="form__label text__label">
@@ -45,8 +65,8 @@ export default function RegisterModal({
                 maxLength="300"
                 className="text__input"
                 placeholder="Password"
-                //value={values.imageUrl}
-                //onChange={handleChange}
+                value={values.password}
+                onChange={handleChange}
                 />
             </label> 
             <label className="form__label text__label">
@@ -58,8 +78,8 @@ export default function RegisterModal({
                 maxLength="30"
                 className="text__input"
                 placeholder="Name"
-                //value={values.name}
-                //onChange={handleChange}
+                value={values.name}
+                onChange={handleChange}
                 />
             </label>
             <label className="form__label text__label">
@@ -71,8 +91,8 @@ export default function RegisterModal({
                 maxLength="300"
                 className="text__input"
                 placeholder="Avatar URL"
-                //value={values.imageUrl}
-                //onChange={handleChange}
+                value={values.avatar}
+                onChange={handleChange}
                 /> 
             </label> 
           

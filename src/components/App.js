@@ -22,7 +22,11 @@ import RegisterModal from "./RegisterModal/RegisterModal";
 import LoginModal from "./LoginModal/LoginModal";
 import { auth } from "../utils/auth";
 
-//json-server --watch db.json --id _id --port 3001
+//Backend start
+// database start
+// "C:\Program Files\MongoDB\Server\5.0\bin\mongod.exe" --dbpath="c:\data\db"
+// server start
+// npm run dev
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -96,7 +100,12 @@ function App() {
       name: input.name, 
       avatar: input.avatar,
     }
-    console.log(newUser)
+    function makeRequest(){
+      return auth.signUp(newUser).then((item) =>{
+        console.log(item)
+      })
+    }
+    handleSubmit(makeRequest)
   }
 
   function handleLoginSubmit(input){
@@ -174,7 +183,7 @@ function App() {
       .getItems()
       .then((data) => {
         console.log(data)
-        setClothingItems(data);
+        setClothingItems(data.data);
       })
       .catch(console.error);
   }, []);

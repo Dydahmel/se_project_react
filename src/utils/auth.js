@@ -14,13 +14,13 @@ function signUp(input){
             avatar: input.avatar, 
             email: input.email, 
             password: input.password 
-        }), 
-    })
+        })
+    })   
 }
 
 
 function signIn(input){
-    return request(`${baseUrl}/singup`, {
+    return request(`${baseUrl}/signin`, {
         method: "POST",
         headers: {
         "Content-Type": "application/json",

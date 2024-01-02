@@ -79,6 +79,10 @@ function App() {
     }
   }
 
+  // function storeToken(token){
+  //   localStorage.setItem("jwt", res.token); 
+  // }
+
   //universal handler for all submits
   function handleSubmit(request) {
     // start loading
@@ -101,8 +105,10 @@ function App() {
       avatar: input.avatar,
     }
     function makeRequest(){
-      return auth.signUp(newUser).then((item) =>{
-        console.log(item)
+      return auth.signUp(newUser).then((res) =>{
+        localStorage.setItem("jwt", res.token)
+        console.log(res.token)
+        
       })
     }
     handleSubmit(makeRequest)
@@ -113,7 +119,13 @@ function App() {
       email: input.email,
       password: input.password,
     }
-    console.log(user)
+    function makeRequest(){
+      return auth.signIn(user).then((res) =>{
+        localStorage.setItem("jwt", res.token)
+        console.log(res)        
+      })
+    }
+    handleSubmit(makeRequest)
   }
 
   
@@ -181,8 +193,7 @@ function App() {
   useEffect(() => {
     api
       .getItems()
-      .then((data) => {
-        console.log(data)
+      .then((data) => {        
         setClothingItems(data.data);
       })
       .catch(console.error);

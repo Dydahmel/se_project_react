@@ -30,10 +30,20 @@ function signIn(input){
             password: input.password 
         }), 
     })
+}
 
+function checkCurrentUser(token){
+    return request(`${baseUrl}/users/me`,{
+        method: "GET",
+        headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`,
+        } 
+    })
 }
 
 export const auth = {
     signUp,
-    signIn
+    signIn,
+    checkCurrentUser
 }

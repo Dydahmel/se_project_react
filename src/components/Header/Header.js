@@ -10,7 +10,8 @@ const currentDate = new Date().toLocaleString("default", {
   day: "numeric",
 });
 
-function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal }) {
+function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, isLoggedIn }) {
+  console.log(isLoggedIn)
   return (
     <header className="header">
       <div className="header__logo-date_container">
@@ -23,18 +24,29 @@ function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal })
       </div>
       <div className="header__button-user_container">
         <ToggleSwitch />
-        <button type="text" className="header__add-btn" onClick={onLoginModal}>
-          Log in
-        </button>
-        {/* <button type="text" className="header__add-btn" onClick={onCreateModal}>
+        <div>
+          { isLoggedIn ? 
+          (<button type="text" className="header__add-btn" onClick={onCreateModal}>
           + Add clothes
-        </button> */}
-        <button type="text" className="header__add-btn" onClick={onSignUpModal}>
+          </button>)            
+          :          
+          (<button type="text" className="header__add-btn" onClick={onSignUpModal}>
           Sign Up
-        </button>         
-        {/* <Link to="/profile" className="header__user-name">
-          Name and Last name
-        </Link> */}
+          </button>)}
+        </div>
+        <div>
+
+          { isLoggedIn ?
+           ( <Link to="/profile" className="header__user-name">
+              Name and Last name
+            </Link>)
+            : 
+            (<button type="text" className="header__add-btn" onClick={onLoginModal}>
+                Log in
+            </button>)
+          }
+        </div>
+        
         <img
           className="header__user-avatar"
           src={headerAvatar}

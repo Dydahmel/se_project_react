@@ -38,6 +38,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTempUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   function handleCreateModal() {
     setActiveModal("create");
@@ -128,6 +129,27 @@ function App() {
     handleSubmit(makeRequest)
   }
 
+  //check if there is token
+
+  //check if token is valid
+
+  //useState for loggedIn
+
+  
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt")
+    if(token){
+      auth.checkCurrentUser(token)
+      .then((user) => {        
+        console.log(user);
+      })
+      .catch(console.error);
+    }
+    setIsLoggedIn(true)
+    
+  }, [])
+
   
   function handleAddFormSubmit(input) {
     const newItem = {
@@ -209,6 +231,7 @@ function App() {
         currentLocation={location} 
         onSignUpModal={handleSignUpModal}
         onLoginModal={handleLoginModal}
+        isLoggedIn={isLoggedIn}
         />
         <Switch>
           <Route exact path="/">

@@ -21,6 +21,7 @@ import { api } from "../utils/api";
 import RegisterModal from "./RegisterModal/RegisterModal";
 import LoginModal from "./LoginModal/LoginModal";
 import { auth } from "../utils/auth";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 //Backend start
 // database start
@@ -38,7 +39,8 @@ function App() {
   const [currentTemperatureUnit, setCurrentTempUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   function handleCreateModal() {
     setActiveModal("create");
@@ -73,12 +75,14 @@ function App() {
 
   function handleToggleSwitchChange() {
     if (currentTemperatureUnit === "C") {
-      setCurrentTempUnit("F");
+      setCurrentTempUnit("F");      
     }
     if (currentTemperatureUnit === "F") {
       setCurrentTempUnit("C");
     }
   }
+
+  
 
   // function storeToken(token){
   //   localStorage.setItem("jwt", res.token); 
@@ -108,7 +112,7 @@ function App() {
     function makeRequest(){
       return auth.signUp(newUser).then((res) =>{
         localStorage.setItem("jwt", res.token)
-        console.log(res.token)
+        //console.log(res.token)
         
       })
     }
@@ -123,7 +127,7 @@ function App() {
     function makeRequest(){
       return auth.signIn(user).then((res) =>{
         localStorage.setItem("jwt", res.token)
-        console.log(res)        
+        setIsLoggedIn(true)        
       })
     }
     handleSubmit(makeRequest)
@@ -141,15 +145,18 @@ function App() {
     const token = localStorage.getItem("jwt")
     if(token){
       auth.checkCurrentUser(token)
-      .then((user) => {        
-        console.log(user);
-      })
+      .then((data) => { 
+        //console.log(data.data)
+        setCurrentUser(data.data)       
+        
+      })      
       .catch(console.error);
     }
     setIsLoggedIn(true)
     
   }, [])
 
+ 
   
   function handleAddFormSubmit(input) {
     const newItem = {
@@ -225,6 +232,7 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
+      <CurrentUserContext.Provider value={{ currentUser }}>
       <div className="App">
         <Header 
         onCreateModal={handleCreateModal} 
@@ -232,6 +240,7 @@ function App() {
         onSignUpModal={handleSignUpModal}
         onLoginModal={handleLoginModal}
         isLoggedIn={isLoggedIn}
+        currentUser={currentUser}
         />
         <Switch>
           <Route exact path="/">
@@ -303,6 +312,7 @@ function App() {
         )
         }
       </div>
+      </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>
   );
 }

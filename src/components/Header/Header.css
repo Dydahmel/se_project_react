@@ -61,6 +61,7 @@
 .header__user-avatar{
     align-self: center;
     size: 40px;
+    border-radius: 40%;
 }
 
 

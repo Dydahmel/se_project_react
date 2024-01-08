@@ -22,6 +22,8 @@ import RegisterModal from "./RegisterModal/RegisterModal";
 import LoginModal from "./LoginModal/LoginModal";
 import { auth } from "../utils/auth";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import EditProfileModal from "./Profile/EditProfileModal/EditProfileModal";
+
 
 //Backend start
 // database start
@@ -67,6 +69,10 @@ function App() {
     setActiveModal("confirmation");
   }
 
+  function handleEditModal(){
+    setActiveModal("editProfile")
+  }
+
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal")) {
       handleCloseModal();
@@ -100,6 +106,18 @@ function App() {
       .catch(console.error)
       // and in finally we need to stop loading
       .finally(() => setIsLoading(false));
+  }
+
+  function handleEditProfileSubmit(input){
+    const updateUser = {
+      name: input.name,
+      avatar: input.avatar
+    }
+    function makeRequest(){
+      console.log(updateUser)
+    }
+
+    handleSubmit(makeRequest)
   }
 
   function handleSignUpSubmit(input){
@@ -309,8 +327,19 @@ function App() {
           onCloseModalByOverlay={handleOverlayClick}
           onSubmit={handleLoginSubmit}
           />
-        )
-        }
+        )}
+        {activeModal === "editProfile" && (
+          <EditProfileModal
+          title={"Change profile data"}
+          isLoading={isLoading}
+          buttonText={isLoading ? "Saving" : "Save changes"}
+          onCloseModal={handleCloseModal}
+          onCloseModalByOverlay={handleOverlayClick}
+          onSubmit={handleEditProfileSubmit}
+          />
+        )} 
+
+
       </div>
       </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>

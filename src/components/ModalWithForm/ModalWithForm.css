@@ -128,6 +128,16 @@
     align-self: start;    
 }
 
+.modal__delete-btn_visible{
+    visibility: visible;
+}
+
+.modal__delete-btn_hidden{
+    visibility: hidden;
+}
+
+
+
 .modal__close-btn:hover{
     opacity: 0.6;
 }

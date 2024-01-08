@@ -51,8 +51,7 @@ export default function RegisterModal({
             maxLength="30"
             className="text__input"
             placeholder="Email"
-            value={values.email}
-            // value={props.value ?? wheelSize}
+            value={values.email}            
             onChange={handleChange}
                 />
             </label>

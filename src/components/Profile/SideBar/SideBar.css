@@ -1,8 +1,13 @@
-.sidebar{
+.sidebar{    
+    min-width: 230px;    
+}
+
+.sidebar__user_container{
     display: flex;
-    justify-content: space-between;
     gap: 16px;
-    min-width: 230px;
+    align-items: center;
+    align-self: flex-start;
+
 }
 
 .sidebar__user-avatar{
@@ -15,5 +20,11 @@
     font-weight: 700;
     line-height: 25px;
     letter-spacing: 0em;
+    text-align: left;
+}
+
+.sidebar__btn-container{
+    display: flex;
+    flex-direction: column;
     text-align: left;
 }

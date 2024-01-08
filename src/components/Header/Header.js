@@ -6,6 +6,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useState } from "react";
+import getAvatarPlaceholder from "../../utils/avatarPlaceholder";
 
 const currentDate = new Date().toLocaleString("default", {
   month: "long",
@@ -13,18 +14,9 @@ const currentDate = new Date().toLocaleString("default", {
 });
 
 function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, isLoggedIn }) {  
-  const {currentUser} = useContext(CurrentUserContext)
+  const {currentUser} = useContext(CurrentUserContext)  
   
-  // Function to extract the first letter from the user's name
-  const getFirstLetter = (name) => {
-    return name ? name.charAt(0).toUpperCase() : '';
- };
-  
-    // Function to generate a random color for the background
-  const getRandomColor = () => {
-    const colors = ['#ff7675', '#74b9ff', '#a29bfe', '#00cec9', '#fdcb6e'];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
+  const avatarPlaceholder = getAvatarPlaceholder(currentUser?.name)
 
   const[imageError, setImageError] = useState(false)
 
@@ -33,8 +25,7 @@ function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, i
   }
 
 
-  console.log(currentUser)
-  console.log(isLoggedIn)  
+  
   return (
     <header className="header">
       <div className="header__logo-date_container">
@@ -74,13 +65,13 @@ function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, i
           (<img
           className="header__user-avatar"
           src={currentUser?.avatar}
-          alt="user-avatar"
+          alt={currentUser?.name + "'s avatar"}
           onError={handleImgError}
         ></img>)
         :
           (
-            <span className="header__user-avatar" style={{backgroundColor: getRandomColor()}}>
-              {getFirstLetter(currentUser?.name)}
+            <span className="header__user-avatar" style={{backgroundColor: avatarPlaceholder.backgroundColor}}>
+             <p className="header__user-avatar_span">{avatarPlaceholder.firstLetter}</p>
             </span>
           )
       }

@@ -36,14 +36,29 @@ function checkCurrentUser(token){
     return request(`${baseUrl}/users/me`,{
         method: "GET",
         headers: {
-        "Content-Type": "application/json",
-        "authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`,
         } 
+    })
+}
+
+function updateUser(input, token){
+    return request(`${baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            name: input.name,
+            avatar: input.avatar
+        }) 
     })
 }
 
 export const auth = {
     signUp,
     signIn,
-    checkCurrentUser
+    checkCurrentUser,
+    updateUser
 }

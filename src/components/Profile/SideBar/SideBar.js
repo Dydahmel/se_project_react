@@ -4,7 +4,7 @@ import CurrentUserContext from "../../../contexts/CurrentUserContext";
 import { useContext, useState } from "react";
 import getAvatarPlaceholder from "../../../utils/avatarPlaceholder";
 
-export default function SideBar() {
+export default function SideBar({onEditModal}) {
   const {currentUser} = useContext(CurrentUserContext)
 
   const avatarPlaceholder = getAvatarPlaceholder(currentUser?.name)  
@@ -36,7 +36,7 @@ export default function SideBar() {
         <p className="sidebar__user-name">{currentUser?.name}</p>
       </div>
       <div className="sidebar__btn-container">
-        <button type="text" className="sidebar__edit-btn">
+        <button type="text" className="sidebar__edit-btn" onClick={onEditModal}>
           Change profile data
         </button>
         <button type="text" className="sidebar__edit-btn">

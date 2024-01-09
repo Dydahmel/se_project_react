@@ -4,11 +4,6 @@ import useForm from "../../hooks/useForm";
 import { getInitialValues } from "../../utils/initialValues";
 
 
-
-
-
-
-
 export default function RegisterModal({
     title,
     buttonText,

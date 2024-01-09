@@ -1,5 +1,8 @@
 import React from "react";
 import "./ItemCard.css";
+import likeDisabled from "../../../images/like-btn__disabled.svg"
+
+
 
 function ItemCard({ card, onSelectCard }) {
   return (
@@ -13,7 +16,13 @@ function ItemCard({ card, onSelectCard }) {
         ></img>
       </div>
       <div className="card__name">
+        
         <span className="card__name-wrapper">{card.name}</span>
+        <button type="button" className="card__like-btn">
+          <img src={likeDisabled}
+          className="card__like-btn_img"/>            
+        </button>
+        
       </div>
     </li>
   );

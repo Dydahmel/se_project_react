@@ -24,21 +24,47 @@
 }
 
 .card__name{
-    text-align: center;
+    text-align: center;    
     position: absolute;
     top: 25px;
-    width: 100%;    
+    left: 40%;     
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
     letter-spacing: 0em;
-    opacity: 0.6;      
+    opacity: 0.6;
+    display: flex;
+    align-items: center; 
+    align-content: center;
+
 }
 
 .card__name-wrapper{
     background-color: white;
-    padding: 7px;
-    border-radius: 4px;
+    padding: 2px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px; 
+    align-self: center;   
+    
+}
+
+
+
+.card__like-btn{
+    border: 0; 
+    background: 0; 
+    padding: 0px;
+    padding-left: 10px;
+    display: flex;
+    cursor: pointer;
+    
+}
+
+.card__like-btn_img{
+    width: 18px; 
+    height: 15px; 
+    align-self: center;    
 }
 
 .card__image{

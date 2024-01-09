@@ -6,11 +6,12 @@ import SideBar from "./SideBar/SideBar";
 export default function Profile({
   onSelectCard,
   onCreateModal,
+  onEditModal,
   clothingItems,
 }) {
   return (
     <div className="profile">
-      <SideBar />
+      <SideBar onEditModal={onEditModal}/>
       <ClothesSection
         onSelectCard={onSelectCard}
         onCreateModal={onCreateModal}

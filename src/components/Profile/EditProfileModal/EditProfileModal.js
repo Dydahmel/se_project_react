@@ -19,16 +19,16 @@ function EditProfileModal({
         avatar: currentUser.avatar
     }
 
-    const{values, handleChange, setVaules} = useForm(initialValues)
+    const{ values, handleChange, setValues } = useForm(initialValues)
 
     useEffect(() => {
-        setVaules(initialValues);
-    // eslint-disable-next-line
-    }, [isOpen])
+        setValues(initialValues);
+        // eslint-disable-next-line
+    }, [isOpen]);
 
     function handleSubmit(evt){
         evt.preventDefault();
-        onsubmit(values);
+        onSubmit(values);
     }
 
     return(

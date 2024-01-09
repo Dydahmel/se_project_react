@@ -109,12 +109,16 @@ function App() {
   }
 
   function handleEditProfileSubmit(input){
-    const updateUser = {
+    const updatedUser = {
       name: input.name,
       avatar: input.avatar
     }
+    const token = localStorage.getItem("jwt")
     function makeRequest(){
-      console.log(updateUser)
+      return auth.updateUser(updatedUser, token).then((res)=>{
+        setCurrentUser(res.data)
+        console.log(res.data)
+      })
     }
 
     handleSubmit(makeRequest)
@@ -129,9 +133,7 @@ function App() {
     }
     function makeRequest(){
       return auth.signUp(newUser).then((res) =>{
-        localStorage.setItem("jwt", res.token)
-        //console.log(res.token)
-        
+        localStorage.setItem("jwt", res.token)       
       })
     }
     handleSubmit(makeRequest)
@@ -274,6 +276,7 @@ function App() {
             <Profile
               onSelectCard={hadleSelectedCard}
               onCreateModal={handleCreateModal}
+              onEditModal={handleEditModal}
               clothingItems={clothingItems}
             />
           </Route>
@@ -332,7 +335,7 @@ function App() {
           <EditProfileModal
           title={"Change profile data"}
           isLoading={isLoading}
-          buttonText={isLoading ? "Saving" : "Save changes"}
+          buttonText={isLoading ? "Saving..." : "Save changes"}
           onCloseModal={handleCloseModal}
           onCloseModalByOverlay={handleOverlayClick}
           onSubmit={handleEditProfileSubmit}

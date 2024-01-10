@@ -11,6 +11,7 @@ function Main({
   currentWeather,
   dayLighCondition,
   clothingItems,
+  onCardLike,
 }) {
   let weatherCondition = "";
   //using context to get current temperature unit
@@ -52,8 +53,8 @@ function Main({
     }
   }, [tempNum]);
 
-  const filteredCards = clothingItems.filter((item) => {
-    return item.weather.toLowerCase() === weatherType;
+  const filteredCards = clothingItems.filter((item) => {    
+    return item?.weather.toLowerCase() === weatherType;
   });
 
   return (
@@ -74,6 +75,7 @@ function Main({
                 card={card}
                 onSelectCard={onSelectCard}
                 key={card._id}
+                onCardLike={onCardLike}
               />
             );
           })}

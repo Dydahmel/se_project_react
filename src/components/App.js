@@ -44,6 +44,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
+  //Modal handlers
   function handleCreateModal() {
     setActiveModal("create");
   }
@@ -73,12 +74,32 @@ function App() {
     setActiveModal("editProfile")
   }
 
+  //Closing modals
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal")) {
       handleCloseModal();
     }
   };
 
+  useEffect(() => {
+    if (!activeModal) return;
+    // Function to handle ESC key press
+    const handleEscKey = (event) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (event.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+    // Attach event listeners when the component mounts
+    document.addEventListener("keydown", handleEscKey);
+    return () => {
+      // Remove event listeners when the component unmounts
+      document.removeEventListener("keydown", handleEscKey);
+    };
+    // eslint-disable-next-line
+  }, [activeModal]);
+
+  
   function handleToggleSwitchChange() {
     if (currentTemperatureUnit === "C") {
       setCurrentTempUnit("F");      
@@ -90,9 +111,9 @@ function App() {
 
   
 
-  // function storeToken(token){
-  //   localStorage.setItem("jwt", res.token); 
-  // }
+  
+
+  
 
   //universal handler for all submits
   function handleSubmit(request) {
@@ -153,14 +174,6 @@ function App() {
     handleSubmit(makeRequest)
   }
 
-  //check if there is token
-
-  //check if token is valid
-
-  //useState for loggedIn
-
-  
-
   useEffect(() => {
     const token = localStorage.getItem("jwt")
     if(token){
@@ -204,25 +217,7 @@ function App() {
     }
     handleSubmit(makeRequest);
   }
-
-  useEffect(() => {
-    if (!activeModal) return;
-    // Function to handle ESC key press
-    const handleEscKey = (event) => {
-      // define the function inside useEffect not to lose the reference on rerendering
-      if (event.key === "Escape") {
-        handleCloseModal();
-      }
-    };
-    // Attach event listeners when the component mounts
-    document.addEventListener("keydown", handleEscKey);
-    return () => {
-      // Remove event listeners when the component unmounts
-      document.removeEventListener("keydown", handleEscKey);
-    };
-    // eslint-disable-next-line
-  }, [activeModal]);
-
+ 
   useEffect(() => {
     getWeather()
       .then((data) => {
@@ -248,6 +243,44 @@ function App() {
       .catch(console.error);
   }, []);
 
+
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    console.log(isLiked)
+    console.log(id)
+    // Check if this card is now liked
+    if(!isLiked)
+      { // if so, send a request to add the user's id to the card's likes array
+        api
+          // the first argument is the card's id
+          .addCardLike(id, token)
+          
+          .then((res) => {
+            const updatedCard = res.data
+            console.log(updatedCard)
+            
+            setClothingItems((cards) =>              
+              cards.map((c) => (c._id === id ? updatedCard.data : c)),
+              
+            );
+          })
+          .catch((err) => console.log(err))}
+      if(isLiked) // if not, send a request to remove the user's id from the card's likes array
+       { api
+          // the first argument is the card's id
+          .removeCardLike(id, token) 
+          .then((res) => {
+            const updatedCard = res.data
+            console.log(updatedCard)
+            
+            setClothingItems((cards) =>
+              cards.map((c) => (c._id === id ? updatedCard.data : c))
+            );
+          })
+          .catch((err) => console.log(err));}
+  };
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -270,6 +303,7 @@ function App() {
               currentWeather={weather}
               dayLighCondition={dayLight}
               clothingItems={clothingItems}
+              onCardLike={handleCardLike}
             />
           </Route>
           <Route path="/profile">

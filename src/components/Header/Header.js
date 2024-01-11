@@ -61,19 +61,25 @@ function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, i
           }
         </div>
         
-        { currentUser?.avatar && !imageError ?
-          (<img
-          className="header__user-avatar"
-          src={currentUser?.avatar}
-          alt={currentUser?.name + "'s avatar"}
-          onError={handleImgError}
-        ></img>)
+        { isLoggedIn ? 
+          ( currentUser?.avatar && !imageError ?
+            (<img
+            className="header__user-avatar"
+            src={currentUser?.avatar}
+            alt={currentUser?.name + "'s avatar"}
+            onError={handleImgError}
+          ></img>)
+          :
+            (
+              <span className="header__user-avatar" style={{backgroundColor: avatarPlaceholder.backgroundColor}}>
+              <p className="header__user-avatar_span">{avatarPlaceholder.firstLetter}</p>
+              </span>
+            )
+        )
         :
-          (
-            <span className="header__user-avatar" style={{backgroundColor: avatarPlaceholder.backgroundColor}}>
-             <p className="header__user-avatar_span">{avatarPlaceholder.firstLetter}</p>
-            </span>
-          )
+        (
+          <p className="header__user-avatar_placeholder"></p>
+        )
       }
       </div>
     </header>

@@ -11,10 +11,11 @@ function ItemModal({
 
   const{currentUser} = useContext(CurrentUserContext)
 
-  const isOwn = selectedCard.owner === currentUser._id
+  const isOwn = selectedCard.owner._id === currentUser?._id
+  
 
   const itemDeleteButtonClassName = (
-    `modal__delete-btn ${isOwn ? 'modal__delete-btn_hidden' : 'modal__delete-btn_visible'}`
+    `modal__delete-btn ${isOwn ? 'modal__delete-btn_visible' : 'modal__delete-btn_hidden'}`
   );
 
   return (

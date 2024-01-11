@@ -166,26 +166,39 @@ function App() {
       password: input.password,
     }
     function makeRequest(){
-      return auth.signIn(user).then((res) =>{
+      return auth.signIn(user)
+      .then((res) =>{
         localStorage.setItem("jwt", res.token)
-        setIsLoggedIn(true)        
+        const token = localStorage?.getItem("jwt")
+        auth.checkCurrentUser(token).then((data)=>{  
+          setCurrentUser(data.data)
+        })                        
       })
+      
     }
     handleSubmit(makeRequest)
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt")
-    if(token){
-      auth.checkCurrentUser(token)
-      .then((data) => { 
-        //console.log(data.data)
-        setCurrentUser(data.data)       
-        
-      })      
-      .catch(console.error);
-    }
-    setIsLoggedIn(true)
+    const token = localStorage?.getItem("jwt");    
+      console.log('Token is valid, welcome user!');
+      if(token){
+        auth.checkCurrentUser(token)
+        .then((data) => { 
+          //console.log(data.data)
+          setCurrentUser(data.data)
+          setIsLoggedIn(true)       
+          
+        })      
+        .catch(console.error);
+      }
+    
+      // Handle the case where the token is invalid or expired
+      // console.log('Token is invalid or expired and was removed');
+      // localStorage.removeItem("jwt")
+      // setIsLoggedIn(false)
+      // setCurrentUser(null)
+    
     
   }, [])
 
@@ -255,14 +268,11 @@ function App() {
         api
           // the first argument is the card's id
           .addCardLike(id, token)
-          
           .then((res) => {
             const updatedCard = res.data
-            console.log(updatedCard)
-            
+            console.log(updatedCard)     
             setClothingItems((cards) =>              
-              cards.map((c) => (c._id === id ? updatedCard.data : c)),
-              
+              cards.map((c) => (c._id === id ? updatedCard : c))
             );
           })
           .catch((err) => console.log(err))}
@@ -272,10 +282,9 @@ function App() {
           .removeCardLike(id, token) 
           .then((res) => {
             const updatedCard = res.data
-            console.log(updatedCard)
-            
+            console.log(updatedCard)            
             setClothingItems((cards) =>
-              cards.map((c) => (c._id === id ? updatedCard.data : c))
+              cards.map((c) => (c._id === id ? updatedCard : c))
             );
           })
           .catch((err) => console.log(err));}
@@ -293,7 +302,7 @@ function App() {
         onSignUpModal={handleSignUpModal}
         onLoginModal={handleLoginModal}
         isLoggedIn={isLoggedIn}
-        currentUser={currentUser}
+        currentUser={currentUser}        
         />
         <Switch>
           <Route exact path="/">
@@ -312,6 +321,7 @@ function App() {
               onCreateModal={handleCreateModal}
               onEditModal={handleEditModal}
               clothingItems={clothingItems}
+              onCardLike={handleCardLike}
             />
           </Route>
         </Switch>

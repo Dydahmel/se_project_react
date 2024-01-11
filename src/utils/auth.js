@@ -60,5 +60,6 @@ export const auth = {
     signUp,
     signIn,
     checkCurrentUser,
-    updateUser
+    updateUser,
+    
 }

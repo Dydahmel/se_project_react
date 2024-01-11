@@ -8,6 +8,8 @@ export default function Profile({
   onCreateModal,
   onEditModal,
   clothingItems,
+  onCardLike,
+
 }) {
   return (
     <div className="profile">
@@ -16,6 +18,7 @@ export default function Profile({
         onSelectCard={onSelectCard}
         onCreateModal={onCreateModal}
         clothingItems={clothingItems}
+        onCardLike={onCardLike}
       />
     </div>
   );

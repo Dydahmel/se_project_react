@@ -14,7 +14,7 @@ The idea of the application is pretty simple - we make a call to an API, which t
 
 #### Links:
 
-
+##### Backend - https://github.com/Dydahmel/se_project_express.git
 ##### My repo - https://github.com/Dydahmel/se_project_react.git
 ##### My linkedIn - https://www.linkedin.com/in/anton-dutchak-5468b2185
 ##### My project https://dydahmel.github.io/se_project_react/

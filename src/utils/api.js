@@ -1,5 +1,5 @@
 const baseUrl = "http://localhost:3001";
-const token = localStorage.getItem("jwt")
+const token = localStorage.getItem("jwt");
 
 //GET https://localhost:3001/items
 
@@ -18,7 +18,7 @@ function getItems() {
   return request(`${baseUrl}/items`, {
     headers: {
       "Content-type": "application/json",
-      "authorization": `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   });
 }
@@ -28,12 +28,12 @@ function addItems(input) {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      "authorization": `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       name: input.name,
       weather: input.weather,
-      imageUrl: input.imageUrl,      
+      imageUrl: input.imageUrl,
     }),
   });
 }
@@ -43,29 +43,29 @@ function removeItem(id) {
     method: "DELETE",
     headers: {
       "Content-type": "application/json",
-      "authorization": `Bearer ${token}`
+      authorization: `Bearer ${token}`,
     },
   });
 }
 
-function addCardLike(id, token){
+function addCardLike(id, token) {
   return request(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
-      "authorization": `Bearer ${token}`
-    },    
-  })
+      authorization: `Bearer ${token}`,
+    },
+  });
 }
 
-function removeCardLike(id, token){
+function removeCardLike(id, token) {
   return request(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
     headers: {
       "Content-type": "application/json",
-      "authorization": `Bearer ${token}`
-    },    
-  })
+      authorization: `Bearer ${token}`,
+    },
+  });
 }
 
 export const api = {
@@ -73,5 +73,5 @@ export const api = {
   addItems,
   removeItem,
   addCardLike,
-  removeCardLike
+  removeCardLike,
 };

@@ -9,11 +9,11 @@ export default function Profile({
   onEditModal,
   clothingItems,
   onCardLike,
-
+  onLogOut,
 }) {
   return (
     <div className="profile">
-      <SideBar onEditModal={onEditModal}/>
+      <SideBar onEditModal={onEditModal} onLogOut={onLogOut} />
       <ClothesSection
         onSelectCard={onSelectCard}
         onCreateModal={onCreateModal}

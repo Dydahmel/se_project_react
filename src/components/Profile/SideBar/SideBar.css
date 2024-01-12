@@ -29,6 +29,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    margin-top: 24px;
 }
 
 .sidebar__edit-btn{
@@ -42,4 +43,5 @@
     letter-spacing: 0em;
     text-align: left;
     font-family: 'Cabinet Grotesk', sans-serif;
+    margin-bottom: 8px;
 }

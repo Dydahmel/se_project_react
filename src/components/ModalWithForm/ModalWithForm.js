@@ -9,6 +9,8 @@ function ModalWithForm({
   children,
   buttonText,
   onSubmit,
+  aditionalBtn,
+  isFormFilled,
 }) {
   return (
     <div
@@ -24,9 +26,20 @@ function ModalWithForm({
         <p className="modal__title">{title}</p>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit-btn">
-            {buttonText}
-          </button>
+          <div>
+            <button
+              type="submit"
+              disabled={!isFormFilled}
+              className={
+                isFormFilled
+                  ? "modal__submit-btn"
+                  : "modal__submit-btn_disabled"
+              }
+            >
+              {buttonText}
+            </button>
+            {aditionalBtn}
+          </div>
         </form>
       </div>
     </div>

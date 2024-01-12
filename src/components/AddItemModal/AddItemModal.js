@@ -11,7 +11,7 @@ export default function AddItemModal({
   onSubmit,
   isOpen,
 }) {
-  const initialValues = getInitialValues('addItem')
+  const initialValues = getInitialValues("addItem");
   const { values, handleChange, setValues } = useForm(initialValues);
 
   useEffect(() => {
@@ -24,6 +24,10 @@ export default function AddItemModal({
     onSubmit(values);
   }
 
+  const isFormFilled = Object.values(values).every(
+    (value) => value.trim() !== "",
+  );
+
   return (
     <ModalWithForm
       title={title}
@@ -32,6 +36,7 @@ export default function AddItemModal({
       onCloseModalByOverlay={onCloseModalByOverlay}
       onSubmit={handleSubmit}
       isOpen={isOpen}
+      isFormFilled={isFormFilled}
     >
       <label className="form__label text__label">
         Name

@@ -24,7 +24,6 @@ import { auth } from "../utils/auth";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import EditProfileModal from "./Profile/EditProfileModal/EditProfileModal";
 
-
 //Backend start
 // database start
 // "C:\Program Files\MongoDB\Server\5.0\bin\mongod.exe" --dbpath="c:\data\db"
@@ -58,11 +57,11 @@ function App() {
     setSelectedCard(card);
   }
 
-  function handleSignUpModal(){
+  function handleSignUpModal() {
     setActiveModal("signUp");
   }
 
-  function handleLoginModal(){
+  function handleLoginModal() {
     setActiveModal("login");
   }
 
@@ -70,8 +69,8 @@ function App() {
     setActiveModal("confirmation");
   }
 
-  function handleEditModal(){
-    setActiveModal("editProfile")
+  function handleEditModal() {
+    setActiveModal("editProfile");
   }
 
   //Closing modals
@@ -99,21 +98,15 @@ function App() {
     // eslint-disable-next-line
   }, [activeModal]);
 
-  
+  //handlers
   function handleToggleSwitchChange() {
     if (currentTemperatureUnit === "C") {
-      setCurrentTempUnit("F");      
+      setCurrentTempUnit("F");
     }
     if (currentTemperatureUnit === "F") {
       setCurrentTempUnit("C");
     }
   }
-
-  
-
-  
-
-  
 
   //universal handler for all submits
   function handleSubmit(request) {
@@ -129,81 +122,58 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleEditProfileSubmit(input){
+  function handleEditProfileSubmit(input) {
     const updatedUser = {
       name: input.name,
-      avatar: input.avatar
+      avatar: input.avatar,
+    };
+    const token = localStorage.getItem("jwt");
+    function makeRequest() {
+      return auth.updateUser(updatedUser, token).then((res) => {
+        setCurrentUser(res.data);
+        console.log(res.data);
+      });
     }
-    const token = localStorage.getItem("jwt")
-    function makeRequest(){
-      return auth.updateUser(updatedUser, token).then((res)=>{
-        setCurrentUser(res.data)
-        console.log(res.data)
-      })
-    }
-
-    handleSubmit(makeRequest)
+    handleSubmit(makeRequest);
   }
 
-  function handleSignUpSubmit(input){
+  function handleSignUpSubmit(input) {
     const newUser = {
       email: input.email,
       password: input.password,
-      name: input.name, 
+      name: input.name,
       avatar: input.avatar,
+    };
+    function makeRequest() {
+      return auth.signUp(newUser).then((res) => {
+        localStorage.setItem("jwt", res.token);
+      });
     }
-    function makeRequest(){
-      return auth.signUp(newUser).then((res) =>{
-        localStorage.setItem("jwt", res.token)       
-      })
-    }
-    handleSubmit(makeRequest)
+    handleSubmit(makeRequest);
   }
 
-  function handleLoginSubmit(input){
+  function handleLoginSubmit(input) {
     const user = {
       email: input.email,
       password: input.password,
+    };
+    function makeRequest() {
+      return auth
+        .signIn(user)
+        .then((res) => {
+          localStorage.setItem("jwt", res.token);
+        })
+        .then(() => {
+          const token = localStorage.getItem("jwt");
+          auth.checkCurrentUser(token).then((data) => {
+            setCurrentUser(data.data);
+            window.location.href = "/profile";
+          });
+        });
     }
-    function makeRequest(){
-      return auth.signIn(user)
-      .then((res) =>{
-        localStorage.setItem("jwt", res.token)
-        const token = localStorage?.getItem("jwt")
-        auth.checkCurrentUser(token).then((data)=>{  
-          setCurrentUser(data.data)
-        })                        
-      })
-      
-    }
-    handleSubmit(makeRequest)
+    handleSubmit(makeRequest);
   }
 
-  useEffect(() => {
-    const token = localStorage?.getItem("jwt");    
-      console.log('Token is valid, welcome user!');
-      if(token){
-        auth.checkCurrentUser(token)
-        .then((data) => { 
-          //console.log(data.data)
-          setCurrentUser(data.data)
-          setIsLoggedIn(true)       
-          
-        })      
-        .catch(console.error);
-      }
-    
-      // Handle the case where the token is invalid or expired
-      // console.log('Token is invalid or expired and was removed');
-      // localStorage.removeItem("jwt")
-      // setIsLoggedIn(false)
-      // setCurrentUser(null)
-    
-    
-  }, [])
-
- 
-  
   function handleAddFormSubmit(input) {
     const newItem = {
       name: input.name,
@@ -213,11 +183,22 @@ function App() {
     // here we create a function that returns a promise
     function makeRequest() {
       return api.addItems(newItem).then((item) => {
-        setClothingItems([item, ...clothingItems]);
+        setClothingItems([item.data, ...clothingItems]);
       });
     }
     // here we call handleSubmit passing the request
     handleSubmit(makeRequest);
+  }
+
+  function handleLogOut() {
+    // Clear authentication token from local storage
+    localStorage.removeItem("jwt");
+
+    //Reset user-related state
+    setCurrentUser(null);
+
+    // Redirect to login page
+    window.location.href = "/";
   }
 
   function handleDeleteCard() {
@@ -230,7 +211,24 @@ function App() {
     }
     handleSubmit(makeRequest);
   }
- 
+
+  useEffect(() => {
+    const token = localStorage?.getItem("jwt");
+    if (token) {
+      console.log("Token is valid, welcome user!");
+      auth
+        .checkCurrentUser(token)
+        .then((data) => {
+          //console.log(data.data)
+          setCurrentUser(data.data);
+          setIsLoggedIn(true);
+        })
+        .catch(console.error);
+    } else {
+      console.log("Please, log in to continue");
+    }
+  }, []);
+
   useEffect(() => {
     getWeather()
       .then((data) => {
@@ -250,44 +248,45 @@ function App() {
   useEffect(() => {
     api
       .getItems()
-      .then((data) => {        
+      .then((data) => {
         setClothingItems(data.data);
       })
       .catch(console.error);
   }, []);
 
-
-
   const handleCardLike = ({ id, isLiked }) => {
     const token = localStorage.getItem("jwt");
-    console.log(isLiked)
-    console.log(id)
+    console.log(isLiked);
+    console.log(id);
     // Check if this card is now liked
-    if(!isLiked)
-      { // if so, send a request to add the user's id to the card's likes array
-        api
-          // the first argument is the card's id
-          .addCardLike(id, token)
-          .then((res) => {
-            const updatedCard = res.data
-            console.log(updatedCard)     
-            setClothingItems((cards) =>              
-              cards.map((c) => (c._id === id ? updatedCard : c))
-            );
-          })
-          .catch((err) => console.log(err))}
-      if(isLiked) // if not, send a request to remove the user's id from the card's likes array
-       { api
-          // the first argument is the card's id
-          .removeCardLike(id, token) 
-          .then((res) => {
-            const updatedCard = res.data
-            console.log(updatedCard)            
-            setClothingItems((cards) =>
-              cards.map((c) => (c._id === id ? updatedCard : c))
-            );
-          })
-          .catch((err) => console.log(err));}
+    if (!isLiked) {
+      // if so, send a request to add the user's id to the card's likes array
+      api
+        // the first argument is the card's id
+        .addCardLike(id, token)
+        .then((res) => {
+          const updatedCard = res.data;
+          console.log(updatedCard);
+          setClothingItems((cards) =>
+            cards.map((c) => (c._id === id ? updatedCard : c)),
+          );
+        })
+        .catch((err) => console.log(err));
+    }
+    if (isLiked) {
+      // if not, send a request to remove the user's id from the card's likes array
+      api
+        // the first argument is the card's id
+        .removeCardLike(id, token)
+        .then((res) => {
+          const updatedCard = res.data;
+          console.log(updatedCard);
+          setClothingItems((cards) =>
+            cards.map((c) => (c._id === id ? updatedCard : c)),
+          );
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -295,99 +294,100 @@ function App() {
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <CurrentUserContext.Provider value={{ currentUser }}>
-      <div className="App">
-        <Header 
-        onCreateModal={handleCreateModal} 
-        currentLocation={location} 
-        onSignUpModal={handleSignUpModal}
-        onLoginModal={handleLoginModal}
-        isLoggedIn={isLoggedIn}
-        currentUser={currentUser}        
-        />
-        <Switch>
-          <Route exact path="/">
-            <Main
-              onSelectCard={hadleSelectedCard}
-              currentTemperature={temp}
-              currentWeather={weather}
-              dayLighCondition={dayLight}
-              clothingItems={clothingItems}
-              onCardLike={handleCardLike}
+        <div className="App">
+          <Header
+            onCreateModal={handleCreateModal}
+            currentLocation={location}
+            onSignUpModal={handleSignUpModal}
+            onLoginModal={handleLoginModal}
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+          />
+          <Switch>
+            <Route exact path="/">
+              <Main
+                onSelectCard={hadleSelectedCard}
+                currentTemperature={temp}
+                currentWeather={weather}
+                dayLighCondition={dayLight}
+                clothingItems={clothingItems}
+                onCardLike={handleCardLike}
+              />
+            </Route>
+            <Route path="/profile">
+              <Profile
+                onSelectCard={hadleSelectedCard}
+                onCreateModal={handleCreateModal}
+                onEditModal={handleEditModal}
+                clothingItems={clothingItems}
+                onCardLike={handleCardLike}
+                onLogOut={handleLogOut}
+              />
+            </Route>
+          </Switch>
+          <Footer />
+          {activeModal === "create" && (
+            <AddItemModal
+              title={"New garment"}
+              buttonText={isLoading ? "Saving..." : "Add garment"}
+              isLoading={isLoading}
+              isOpen={activeModal === "create"}
+              onCloseModal={handleCloseModal}
+              onCloseModalByOverlay={handleOverlayClick}
+              onSubmit={handleAddFormSubmit}
             />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              onSelectCard={hadleSelectedCard}
-              onCreateModal={handleCreateModal}
-              onEditModal={handleEditModal}
-              clothingItems={clothingItems}
-              onCardLike={handleCardLike}
+          )}
+          {activeModal === "preview" && (
+            <ItemModal
+              selectedCard={selectedCard}
+              onCloseModal={handleCloseModal}
+              onCloseModalByOverlay={handleOverlayClick}
+              onDelete={handleDeleteModal}
             />
-          </Route>
-        </Switch>
-        <Footer />
-        {activeModal === "create" && (
-          <AddItemModal
-            title={"New garment"}
-            buttonText={isLoading ? "Saving..." : "Add garment"}
-            isLoading={isLoading}
-            isOpen={activeModal === "create"}
-            onCloseModal={handleCloseModal}
-            onCloseModalByOverlay={handleOverlayClick}
-            onSubmit={handleAddFormSubmit}
-          />
-        )}
-        {activeModal === "preview" && (
-          <ItemModal
-            selectedCard={selectedCard}
-            onCloseModal={handleCloseModal}
-            onCloseModalByOverlay={handleOverlayClick}
-            onDelete={handleDeleteModal}
-          />
-        )}
-        {activeModal === "confirmation" && (
-          <ConfirmationModal
-            onCloseModal={handleCloseModal}
-            onCloseModalByOverlay={handleOverlayClick}
-            onCancelClick={() => hadleSelectedCard(selectedCard)}
-            selectedCard={selectedCard}
-            onYesClick={handleDeleteCard}
-            confirmationButtonText={
-              isLoading ? "Deleting..." : "Yes, delete item"
-            }
-          />
-        )}
-        {activeModal === "signUp" && (
-          <RegisterModal
-          title={"Sign up"}
-          buttonText={"Next"}
-          onCloseModal={handleCloseModal}
-          onCloseModalByOverlay={handleOverlayClick}
-          onSubmit={handleSignUpSubmit}
-          />
-        )}
-        {activeModal === "login" && (
-          <LoginModal
-          title={"Log in"}
-          buttonText={"Log in"}
-          onCloseModal={handleCloseModal}
-          onCloseModalByOverlay={handleOverlayClick}
-          onSubmit={handleLoginSubmit}
-          />
-        )}
-        {activeModal === "editProfile" && (
-          <EditProfileModal
-          title={"Change profile data"}
-          isLoading={isLoading}
-          buttonText={isLoading ? "Saving..." : "Save changes"}
-          onCloseModal={handleCloseModal}
-          onCloseModalByOverlay={handleOverlayClick}
-          onSubmit={handleEditProfileSubmit}
-          />
-        )} 
-
-
-      </div>
+          )}
+          {activeModal === "confirmation" && (
+            <ConfirmationModal
+              onCloseModal={handleCloseModal}
+              onCloseModalByOverlay={handleOverlayClick}
+              onCancelClick={() => hadleSelectedCard(selectedCard)}
+              selectedCard={selectedCard}
+              onYesClick={handleDeleteCard}
+              confirmationButtonText={
+                isLoading ? "Deleting..." : "Yes, delete item"
+              }
+            />
+          )}
+          {activeModal === "signUp" && (
+            <RegisterModal
+              onLoginClick={handleLoginModal}
+              title={"Sign up"}
+              buttonText={"Next"}
+              onCloseModal={handleCloseModal}
+              onCloseModalByOverlay={handleOverlayClick}
+              onSubmit={handleSignUpSubmit}
+            />
+          )}
+          {activeModal === "login" && (
+            <LoginModal
+              onSignUpClick={handleSignUpModal}
+              title={"Log in"}
+              buttonText={"Log in"}
+              onCloseModal={handleCloseModal}
+              onCloseModalByOverlay={handleOverlayClick}
+              onSubmit={handleLoginSubmit}
+            />
+          )}
+          {activeModal === "editProfile" && (
+            <EditProfileModal
+              title={"Change profile data"}
+              isLoading={isLoading}
+              buttonText={isLoading ? "Saving..." : "Save changes"}
+              onCloseModal={handleCloseModal}
+              onCloseModalByOverlay={handleOverlayClick}
+              onSubmit={handleEditProfileSubmit}
+            />
+          )}
+        </div>
       </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>
   );

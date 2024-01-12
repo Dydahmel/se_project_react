@@ -2,16 +2,15 @@
 import daySunny from "../images/day__sunny.svg";
 import day__cloud from "../images/day__cloud.svg";
 import day__fog from "../images/day__fog.svg";
-import day__rain from "../images/day__rain.svg"
-import day__snow from "../images/day__snow.svg"
-import day__storm from "../images/day__snow.svg"
-import night__moon from "../images/night__moon.svg"
-import night__cloudy from "../images/night__cloudy.svg"
-import night__fog from "../images/night__fog.svg"
-import night__rain from "../images/night__rain.svg"
-import night__snow from "../images/night__snow.svg"
-import night__storm from "../images/night__storm.svg"
-
+import day__rain from "../images/day__rain.svg";
+import day__snow from "../images/day__snow.svg";
+import day__storm from "../images/day__snow.svg";
+import night__moon from "../images/night__moon.svg";
+import night__cloudy from "../images/night__cloudy.svg";
+import night__fog from "../images/night__fog.svg";
+import night__rain from "../images/night__rain.svg";
+import night__snow from "../images/night__snow.svg";
+import night__storm from "../images/night__storm.svg";
 
 export const weatherOptions = [
   {

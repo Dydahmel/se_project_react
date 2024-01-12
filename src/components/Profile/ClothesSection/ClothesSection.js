@@ -9,12 +9,8 @@ export default function ClothesSection({
   onCreateModal,
   clothingItems,
   onCardLike,
-
 }) {
-  const {currentUser} = useContext(CurrentUserContext)
-
-  
-
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <section className="clothes">
@@ -30,15 +26,20 @@ export default function ClothesSection({
       </div>
       <ul className="clothes__list card__list">
         {clothingItems.map((card) => {
-          const isOwn = currentUser._id === card.owner._id || card.owner          
-          if(isOwn){
+          const isOwn = currentUser?._id === card.owner?._id || card?.owner;
+          if (isOwn) {
             return (
-            <ItemCard card={card} onSelectCard={onSelectCard} key={card._id} onCardLike={onCardLike}/>
-          )}
-          return null
+              <ItemCard
+                card={card}
+                onSelectCard={onSelectCard}
+                key={card._id}
+                onCardLike={onCardLike}
+              />
+            );
+          }
+          return null;
         })}
       </ul>
     </section>
   );
 }
-

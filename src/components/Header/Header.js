@@ -13,19 +13,23 @@ const currentDate = new Date().toLocaleString("default", {
   day: "numeric",
 });
 
-function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, isLoggedIn }) {  
-  const {currentUser} = useContext(CurrentUserContext)  
-  
-  const avatarPlaceholder = getAvatarPlaceholder(currentUser?.name)
+function Header({
+  onCreateModal,
+  currentLocation,
+  onSignUpModal,
+  onLoginModal,
+  isLoggedIn,
+}) {
+  const { currentUser } = useContext(CurrentUserContext);
 
-  const[imageError, setImageError] = useState(false)
+  const avatarPlaceholder = getAvatarPlaceholder(currentUser?.name);
+
+  const [imageError, setImageError] = useState(false);
 
   function handleImgError() {
-    setImageError(true)
+    setImageError(true);
   }
 
-
-  
   return (
     <header className="header">
       <div className="header__logo-date_container">
@@ -39,48 +43,61 @@ function Header({ onCreateModal, currentLocation, onSignUpModal, onLoginModal, i
       <div className="header__button-user_container">
         <ToggleSwitch />
         <div>
-          { isLoggedIn ? 
-          (<button type="text" className="header__add-btn" onClick={onCreateModal}>
-          + Add clothes
-          </button>)            
-          :          
-          (<button type="text" className="header__add-btn" onClick={onSignUpModal}>
-          Sign Up
-          </button>)}
+          {isLoggedIn ? (
+            <button
+              type="text"
+              className="header__add-btn"
+              onClick={onCreateModal}
+            >
+              + Add clothes
+            </button>
+          ) : (
+            <button
+              type="text"
+              className="header__add-btn"
+              onClick={onSignUpModal}
+            >
+              Sign Up
+            </button>
+          )}
         </div>
         <div>
-
-          { isLoggedIn ?
-           ( <Link to="/profile" className="header__user-name">
-              {currentUser?.name }
-            </Link>)
-            : 
-            (<button type="text" className="header__add-btn" onClick={onLoginModal}>
-                Log in
-            </button>)
-          }
+          {isLoggedIn ? (
+            <Link to="/profile" className="header__user-name">
+              {currentUser?.name}
+            </Link>
+          ) : (
+            <button
+              type="text"
+              className="header__add-btn"
+              onClick={onLoginModal}
+            >
+              Log in
+            </button>
+          )}
         </div>
-        
-        { isLoggedIn ? 
-          ( currentUser?.avatar && !imageError ?
-            (<img
-            className="header__user-avatar"
-            src={currentUser?.avatar}
-            alt={currentUser?.name + "'s avatar"}
-            onError={handleImgError}
-          ></img>)
-          :
-            (
-              <span className="header__user-avatar" style={{backgroundColor: avatarPlaceholder.backgroundColor}}>
-              <p className="header__user-avatar_span">{avatarPlaceholder.firstLetter}</p>
-              </span>
-            )
-        )
-        :
-        (
+
+        {isLoggedIn ? (
+          currentUser?.avatar && !imageError ? (
+            <img
+              className="header__user-avatar"
+              src={currentUser?.avatar}
+              alt={currentUser?.name + "'s avatar"}
+              onError={handleImgError}
+            ></img>
+          ) : (
+            <span
+              className="header__user-avatar"
+              style={{ backgroundColor: avatarPlaceholder.backgroundColor }}
+            >
+              <p className="header__user-avatar_span">
+                {avatarPlaceholder.firstLetter}
+              </p>
+            </span>
+          )
+        ) : (
           <p className="header__user-avatar_placeholder"></p>
-        )
-      }
+        )}
       </div>
     </header>
   );

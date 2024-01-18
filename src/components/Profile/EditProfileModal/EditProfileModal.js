@@ -30,6 +30,11 @@ function EditProfileModal({
     onSubmit(values);
   }
 
+  const isFormFilled = Object.values(values).every(
+    (value) => value.trim() !== "",
+  );
+
+
   return (
     <ModalWithForm
       title={title}
@@ -38,6 +43,7 @@ function EditProfileModal({
       onCloseModalByOverlay={onCloseModalByOverlay}
       onSubmit={handleSubmit}
       isOpen={isOpen}
+      isFormFilled={isFormFilled}
     >
       <label className="form__label text__label">
         Name

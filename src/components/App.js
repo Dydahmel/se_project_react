@@ -14,7 +14,7 @@ import {
 } from "../utils/WeatherApi";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import { api } from "../utils/api";
@@ -42,6 +42,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const history = useHistory();
 
   //Modal handlers
   function handleCreateModal() {
@@ -167,7 +168,7 @@ function App() {
           const token = localStorage.getItem("jwt");
           auth.checkCurrentUser(token).then((data) => {
             setCurrentUser(data.data);
-            window.location.href = "/profile";
+            history.push("/profile");
           });
         });
     }

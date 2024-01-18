@@ -169,6 +169,7 @@ function App() {
           auth.checkCurrentUser(token).then((data) => {
             setCurrentUser(data.data);
             history.push("/profile");
+            setIsLoggedIn(true);
           });
         });
     }

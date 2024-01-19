@@ -10,12 +10,12 @@ function ItemModal({
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const isOwn = selectedCard.owner._id === currentUser?._id;
+  const isOwn = selectedCard.owner || selectedCard.owner._id === currentUser?._id;
 
   const itemDeleteButtonClassName = `modal__delete-btn ${
     isOwn ? "modal__delete-btn_visible" : "modal__delete-btn_hidden"
   }`;
-
+  
   return (
     <div className={`modal`} onClick={onCloseModalByOverlay}>
       <div className="modal__content modal__content-img">

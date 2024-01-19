@@ -23,7 +23,8 @@ function getItems() {
   });
 }
 //POST https://localhost:3001/items
-function addItems(input) {
+function addItems(input, token) {
+ 
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -36,9 +37,10 @@ function addItems(input) {
       imageUrl: input.imageUrl,
     }),
   });
+  
 }
 
-function removeItem(id) {
+function removeItem(id, token) {
   return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {

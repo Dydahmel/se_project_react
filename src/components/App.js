@@ -177,6 +177,7 @@ function App() {
   }
 
   function handleAddFormSubmit(input) {
+    const token = localStorage.getItem("jwt")
     const newItem = {
       name: input.name,
       weather: input.weather,
@@ -184,7 +185,8 @@ function App() {
     };
     // here we create a function that returns a promise
     function makeRequest() {
-      return api.addItems(newItem).then((item) => {
+      console.log(newItem)
+      return api.addItems(newItem, token).then((item) => {
         setClothingItems([item.data, ...clothingItems]);
       });
     }
@@ -204,8 +206,9 @@ function App() {
   }
 
   function handleDeleteCard() {
+    const token = localStorage.getItem("jwt")
     function makeRequest() {
-      return api.removeItem(selectedCard._id).then(() => {
+      return api.removeItem(selectedCard._id, token).then(() => {
         setClothingItems((clothingItems) =>
           clothingItems.filter((item) => item._id !== selectedCard._id),
         );
@@ -247,7 +250,7 @@ function App() {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {    
     api
       .getItems()
       .then((data) => {

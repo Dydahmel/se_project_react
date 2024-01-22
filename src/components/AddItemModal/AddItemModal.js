@@ -6,8 +6,7 @@ import { getInitialValues } from "../../utils/initialValues";
 export default function AddItemModal({
   title,
   buttonText,
-  onCloseModal,
-  onCloseModalByOverlay,
+  onCloseModal,  
   onSubmit,
   isOpen,
 }) {
@@ -32,8 +31,7 @@ export default function AddItemModal({
     <ModalWithForm
       title={title}
       buttonText={buttonText}
-      onCloseModal={onCloseModal}
-      onCloseModalByOverlay={onCloseModalByOverlay}
+      onCloseModal={onCloseModal}      
       onSubmit={handleSubmit}
       isOpen={isOpen}
       isFormFilled={isFormFilled}

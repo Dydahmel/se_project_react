@@ -74,30 +74,7 @@ function App() {
     setActiveModal("editProfile");
   }
 
-  //Closing modals
-  const handleOverlayClick = (event) => {
-    if (event.target.classList.contains("modal")) {
-      handleCloseModal();
-    }
-  };
-
-  useEffect(() => {
-    if (!activeModal) return;
-    // Function to handle ESC key press
-    const handleEscKey = (event) => {
-      // define the function inside useEffect not to lose the reference on rerendering
-      if (event.key === "Escape") {
-        handleCloseModal();
-      }
-    };
-    // Attach event listeners when the component mounts
-    document.addEventListener("keydown", handleEscKey);
-    return () => {
-      // Remove event listeners when the component unmounts
-      document.removeEventListener("keydown", handleEscKey);
-    };
-    // eslint-disable-next-line
-  }, [activeModal]);
+  
 
   //handlers
   function handleToggleSwitchChange() {
@@ -202,7 +179,10 @@ function App() {
     setCurrentUser(null);
 
     // Redirect to login page
-    window.location.href = "/";
+    history.push("/");
+    
+    //set login-state
+    setIsLoggedIn(false);
   }
 
   function handleDeleteCard() {
@@ -276,7 +256,7 @@ function App() {
             cards.map((c) => (c._id === id ? updatedCard : c)),
           );
         })
-        .catch((err) => console.log(err));
+        .catch(console.error);
     }
     if (isLiked) {
       // if not, send a request to remove the user's id from the card's likes array
@@ -290,7 +270,7 @@ function App() {
             cards.map((c) => (c._id === id ? updatedCard : c)),
           );
         })
-        .catch((err) => console.log(err));
+        .catch(console.error);
     }
   };
 
@@ -338,7 +318,6 @@ function App() {
               isLoading={isLoading}
               isOpen={activeModal === "create"}
               onCloseModal={handleCloseModal}
-              onCloseModalByOverlay={handleOverlayClick}
               onSubmit={handleAddFormSubmit}
             />
           )}
@@ -346,14 +325,13 @@ function App() {
             <ItemModal
               selectedCard={selectedCard}
               onCloseModal={handleCloseModal}
-              onCloseModalByOverlay={handleOverlayClick}
               onDelete={handleDeleteModal}
+              isLoggedIn={isLoggedIn}
             />
           )}
           {activeModal === "confirmation" && (
             <ConfirmationModal
               onCloseModal={handleCloseModal}
-              onCloseModalByOverlay={handleOverlayClick}
               onCancelClick={() => hadleSelectedCard(selectedCard)}
               selectedCard={selectedCard}
               onYesClick={handleDeleteCard}
@@ -368,7 +346,6 @@ function App() {
               title={"Sign up"}
               buttonText={"Next"}
               onCloseModal={handleCloseModal}
-              onCloseModalByOverlay={handleOverlayClick}
               onSubmit={handleSignUpSubmit}
             />
           )}
@@ -378,7 +355,6 @@ function App() {
               title={"Log in"}
               buttonText={"Log in"}
               onCloseModal={handleCloseModal}
-              onCloseModalByOverlay={handleOverlayClick}
               onSubmit={handleLoginSubmit}
             />
           )}
@@ -388,7 +364,6 @@ function App() {
               isLoading={isLoading}
               buttonText={isLoading ? "Saving..." : "Save changes"}
               onCloseModal={handleCloseModal}
-              onCloseModalByOverlay={handleOverlayClick}
               onSubmit={handleEditProfileSubmit}
             />
           )}

@@ -1,21 +1,15 @@
 import React from "react";
 import "../ModalWithForm/ModalWithForm.css";
+import { Modal } from "../Modal/Modal";
 
 export default function ConfirmationModal({
-  onCloseModal,
-  onCloseModalByOverlay,
+  onCloseModal,  
   onCancelClick,
   onYesClick,
   confirmationButtonText,
 }) {
   return (
-    <div className={`modal`} onClick={onCloseModalByOverlay}>
-      <div className="modal__content">
-        <button
-          type="button"
-          onClick={onCloseModal}
-          className="modal__close-btn"
-        />
+    <Modal onClose={onCloseModal}>    
         <div className="modal__confirmation">
           <div className="modal__confirmation-container">
             <p className="modal__confirmation-text">
@@ -39,8 +33,7 @@ export default function ConfirmationModal({
           >
             Cancel
           </button>
-        </div>
-      </div>
-    </div>
+        </div>   
+    </Modal>
   );
 }

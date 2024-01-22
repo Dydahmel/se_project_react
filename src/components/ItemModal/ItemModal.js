@@ -1,29 +1,24 @@
 import React, { useContext } from "react";
 import "../ModalWithForm/ModalWithForm.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { Modal } from "../Modal/Modal";
 
 function ItemModal({
   selectedCard,
-  onCloseModal,
-  onCloseModalByOverlay,
+  onCloseModal,  
   onDelete,
+  isLoggedIn
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const isOwn = selectedCard.owner || selectedCard.owner._id === currentUser?._id;
 
   const itemDeleteButtonClassName = `modal__delete-btn ${
-    isOwn ? "modal__delete-btn_visible" : "modal__delete-btn_hidden"
+    isOwn && isLoggedIn ? "modal__delete-btn_visible" : "modal__delete-btn_hidden"
   }`;
   
   return (
-    <div className={`modal`} onClick={onCloseModalByOverlay}>
-      <div className="modal__content modal__content-img">
-        <button
-          type="button"
-          onClick={onCloseModal}
-          className="modal__close-btn"
-        />
+    <Modal onClose={onCloseModal} modalContentClassName = "modal__content-img">
         <img
           alt={selectedCard.name}
           src={selectedCard.link || selectedCard.imageUrl}
@@ -41,9 +36,8 @@ function ItemModal({
           >
             Delete item
           </button>
-        </div>
-      </div>
-    </div>
+        </div> 
+    </Modal>
   );
 }
 

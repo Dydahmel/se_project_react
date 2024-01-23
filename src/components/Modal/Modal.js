@@ -29,12 +29,11 @@ export const Modal = ({ name, onClose, modalContentClassName, children }) => {
   return (
     <div className={`modal modal_type_${name}`} onClick={handleOverlay}>
       {/* the container for the contents */}
-      <div className= {`modal__content ${modalContentClassName}` } >
-        {/* add the close button */}        
+      <div className={`modal__content ${modalContentClassName}`}>
+        {/* add the close button */}
         <button className="modal__close-btn" type="button" onClick={onClose} />
         {/* here will be anything you add as `children`*/}
         {children}
-        
       </div>
     </div>
   );

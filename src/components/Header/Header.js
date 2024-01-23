@@ -30,7 +30,6 @@ function Header({
     setImageError(true);
   }
 
-  
   return (
     <header className="header">
       <div className="header__logo-date_container">

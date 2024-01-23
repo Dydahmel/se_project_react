@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export default function LoginModal({
   title,
   buttonText,
-  onCloseModal,  
+  onCloseModal,
   onSubmit,
   isOpen,
   onSignUpClick,
@@ -34,7 +34,7 @@ export default function LoginModal({
     <ModalWithForm
       title={title}
       buttonText={buttonText}
-      onCloseModal={onCloseModal}      
+      onCloseModal={onCloseModal}
       onSubmit={handleSubmit}
       isOpen={isOpen}
       onSignUpClick={onSignUpClick}

@@ -14,7 +14,11 @@ import {
 } from "../utils/WeatherApi";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { useEffect, useState } from "react";
-import { Route, Switch, useHistory } from "react-router-dom/cjs/react-router-dom";
+import {
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom/cjs/react-router-dom";
 import AddItemModal from "./AddItemModal/AddItemModal";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 import { api } from "../utils/api";
@@ -73,8 +77,6 @@ function App() {
   function handleEditModal() {
     setActiveModal("editProfile");
   }
-
-  
 
   //handlers
   function handleToggleSwitchChange() {
@@ -154,7 +156,7 @@ function App() {
   }
 
   function handleAddFormSubmit(input) {
-    const token = localStorage.getItem("jwt")
+    const token = localStorage.getItem("jwt");
     const newItem = {
       name: input.name,
       weather: input.weather,
@@ -162,7 +164,7 @@ function App() {
     };
     // here we create a function that returns a promise
     function makeRequest() {
-      console.log(newItem)
+      console.log(newItem);
       return api.addItems(newItem, token).then((item) => {
         setClothingItems([item.data, ...clothingItems]);
       });
@@ -180,13 +182,13 @@ function App() {
 
     // Redirect to login page
     history.push("/");
-    
+
     //set login-state
     setIsLoggedIn(false);
   }
 
   function handleDeleteCard() {
-    const token = localStorage.getItem("jwt")
+    const token = localStorage.getItem("jwt");
     function makeRequest() {
       return api.removeItem(selectedCard._id, token).then(() => {
         setClothingItems((clothingItems) =>
@@ -230,7 +232,7 @@ function App() {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     api
       .getItems()
       .then((data) => {

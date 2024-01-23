@@ -24,7 +24,6 @@ function getItems() {
 }
 //POST https://localhost:3001/items
 function addItems(input, token) {
- 
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -37,7 +36,6 @@ function addItems(input, token) {
       imageUrl: input.imageUrl,
     }),
   });
-  
 }
 
 function removeItem(id, token) {

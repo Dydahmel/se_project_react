@@ -7,7 +7,7 @@ export default function RegisterModal({
   onLoginClick,
   title,
   buttonText,
-  onCloseModal,  
+  onCloseModal,
   onSubmit,
   isOpen,
 }) {
@@ -33,7 +33,7 @@ export default function RegisterModal({
     <ModalWithForm
       title={title}
       buttonText={buttonText}
-      onCloseModal={onCloseModal}      
+      onCloseModal={onCloseModal}
       onSubmit={handleSubmit}
       isOpen={isOpen}
       onLoginClick={onLoginClick}

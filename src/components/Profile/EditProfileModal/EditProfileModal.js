@@ -7,7 +7,7 @@ import useForm from "../../../hooks/useForm";
 function EditProfileModal({
   title,
   buttonText,
-  onCloseModal,  
+  onCloseModal,
   onSubmit,
   isOpen,
 }) {
@@ -33,12 +33,11 @@ function EditProfileModal({
     (value) => value.trim() !== "",
   );
 
-
   return (
     <ModalWithForm
       title={title}
       buttonText={buttonText}
-      onCloseModal={onCloseModal}      
+      onCloseModal={onCloseModal}
       onSubmit={handleSubmit}
       isOpen={isOpen}
       isFormFilled={isFormFilled}

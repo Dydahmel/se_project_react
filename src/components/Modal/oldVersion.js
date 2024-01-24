@@ -26,6 +26,9 @@
     </div>
   </div>
 
+
+  
+
   {/* //ItemModal */}
   <div className={`modal`} onClick={onCloseModalByOverlay}>
     <div className="modal__content modal__content-img">

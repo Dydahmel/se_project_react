@@ -12,6 +12,8 @@ export default function Profile({
   onLogOut,
 }) {
   return (
+
+    
     <div className="profile">
       <SideBar onEditModal={onEditModal} onLogOut={onLogOut} />
       <ClothesSection

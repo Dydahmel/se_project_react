@@ -1,7 +1,9 @@
 //import React from "react";
 import { request } from "./api";
 
-const baseUrl = "http://localhost:3001";
+const baseUrl = process.env.NODE_ENV === "production" 
+? "https://api.wtwr-project.chickenkiller.com"
+: "http://localhost:3001";
 
 function signUp(input) {
   return request(`${baseUrl}/signup`, {

@@ -1,4 +1,6 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl = process.env.NODE_ENV === "production" 
+? "https://api.wtwr-project.chickenkiller.com"
+: "http://localhost:3001";
 const token = localStorage.getItem("jwt");
 
 //GET https://localhost:3001/items

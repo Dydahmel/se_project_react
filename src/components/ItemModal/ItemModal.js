@@ -7,13 +7,16 @@ function ItemModal({ selectedCard, onCloseModal, onDelete, isLoggedIn }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const isOwn =
-    selectedCard.owner || selectedCard.owner._id === currentUser?._id;
+    selectedCard.owner && selectedCard.owner._id === currentUser?._id;
+
+  console.log(isOwn)
 
   const itemDeleteButtonClassName = `modal__delete-btn ${
     isOwn && isLoggedIn
       ? "modal__delete-btn_visible"
       : "modal__delete-btn_hidden"
   }`;
+  
 
   return (
     <Modal onClose={onCloseModal} modalContentClassName="modal__content-img">
